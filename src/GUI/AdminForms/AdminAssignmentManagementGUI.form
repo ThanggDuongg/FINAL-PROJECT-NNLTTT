@@ -28,7 +28,7 @@
           <text value="Danh sách đơn hàng chờ được giao"/>
         </properties>
       </component>
-      <component id="5b56" class="javax.swing.JTable" binding="table1" default-binding="true">
+      <component id="5b56" class="javax.swing.JTable" binding="table_OrderNotShipper">
         <constraints>
           <grid row="2" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -72,7 +72,7 @@
           <text value="Name:"/>
         </properties>
       </component>
-      <component id="1401" class="javax.swing.JButton" default-binding="true">
+      <component id="1401" class="javax.swing.JButton" binding="btn_Assignment">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -81,7 +81,7 @@
           <text value="Assignment"/>
         </properties>
       </component>
-      <component id="4c003" class="javax.swing.JComboBox" default-binding="true">
+      <component id="4c003" class="javax.swing.JComboBox" binding="cb_IdShipper">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -89,7 +89,7 @@
           <font name="Arial" size="14" style="0"/>
         </properties>
       </component>
-      <component id="25957" class="javax.swing.JTextField" default-binding="true">
+      <component id="25957" class="javax.swing.JTextField" binding="txt_FullnameShipepr">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -99,7 +99,7 @@
           <font name="Arial" size="14" style="0"/>
         </properties>
       </component>
-      <component id="1229e" class="javax.swing.JTextField" default-binding="true">
+      <component id="1229e" class="javax.swing.JTextField" binding="txt_AllOrderInDay">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

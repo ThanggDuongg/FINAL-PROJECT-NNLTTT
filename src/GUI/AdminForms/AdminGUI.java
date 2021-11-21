@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 public class AdminGUI extends JFrame{
 
     private JPanel mainPanel;
-    private JButton btnManageAccount;
-    private JButton btnManageAssignment;
-    private JButton btnManageMenu;
-    private JButton btnManageRevenue;
+    private JButton btn_ManageAccount;
+    private JButton btn_ManageAssignment;
+    private JButton btn_ManageMenu;
+    private JButton btn_ManageRevenue;
     private JPanel menuPanel;
 
     public AdminGUI() {
@@ -20,25 +20,25 @@ public class AdminGUI extends JFrame{
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-        btnManageAccount.addActionListener(new ActionListener() {
+        btn_ManageAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdminAccountsManagementGUI accountsManagementGUI = new AdminAccountsManagementGUI();
             }
         });
-        btnManageAssignment.addActionListener(new ActionListener() {
+        btn_ManageAssignment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdminAssignmentManagementGUI adminAssignmentManagementGUI = new AdminAssignmentManagementGUI();
             }
         });
-        btnManageRevenue.addActionListener(new ActionListener() {
+        btn_ManageRevenue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdminRevenueManagement adminRevenueManagement = new AdminRevenueManagement();
             }
         });
-        btnManageMenu.addActionListener(new ActionListener() {
+        btn_ManageMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdminMenuManagementGUI adminMenuManagementGUI = new AdminMenuManagementGUI();

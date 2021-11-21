@@ -3,8 +3,10 @@ package GUI.AdminForms;
 import javax.swing.*;
 
 public class AdminRevenueManagement extends JFrame{
-    private JTable table1;
+    private JTable table_HistoryOrders_Deliverd;
     private JPanel mainPanel;
+    private JTextField txt_TotalCost;
+    private JButton btn_ExportToPDF;
 
     public AdminRevenueManagement() {
         setContentPane(mainPanel);

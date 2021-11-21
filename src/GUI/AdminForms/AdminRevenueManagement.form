@@ -34,10 +34,10 @@
         </constraints>
         <properties>
           <font name="Arial" size="16" style="1"/>
-          <text value="Điều kiện"/>
+          <text value="Sort"/>
         </properties>
       </component>
-      <component id="59f72" class="javax.swing.JTable" binding="table1" default-binding="true">
+      <component id="59f72" class="javax.swing.JTable" binding="table_HistoryOrders_Deliverd">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -62,7 +62,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="5b746" class="javax.swing.JButton" default-binding="true">
+          <component id="5b746" class="javax.swing.JButton" binding="btn_ExportToPDF">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -93,9 +93,15 @@
         </constraints>
         <properties>
           <font name="Arial" size="14" style="0"/>
+          <model>
+            <item value="Day - up"/>
+            <item value="Day - down"/>
+            <item value="Price - up"/>
+            <item value="Price -down"/>
+          </model>
         </properties>
       </component>
-      <component id="985ee" class="javax.swing.JTextField" default-binding="true">
+      <component id="985ee" class="javax.swing.JTextField" binding="txt_TotalCost">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
