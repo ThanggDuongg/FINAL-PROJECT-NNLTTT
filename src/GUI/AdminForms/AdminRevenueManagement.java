@@ -27,6 +27,11 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+//import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.ss.usermodel.CellType;
+//import org.apache.poi.xssf.usermodel.XSSFRow;
+//import org.apache.poi.xssf.usermodel.XSSFSheet;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -46,7 +51,6 @@ public class AdminRevenueManagement extends JFrame{
     private JButton btn_ExportPDF;
     private JComboBox cb_Sort;
     private JPanel pnl_Chart;
-    private JButton btn_ExportExcel;
 
     private void loadHistoryOrder_Delivered(int index) {
         DefaultTableModel model = (DefaultTableModel) table_HistoryOrders_Deliverd.getModel();
@@ -133,9 +137,9 @@ public class AdminRevenueManagement extends JFrame{
                 loadHistoryOrder_Delivered(index);
             }
         });
-        btn_ExportExcel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+//        btn_ExportExcel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
 //                try {
 //                    XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
 //                    XSSFSheet xssfSheet = xssfWorkbook.createSheet("Ngôn ngữ lập trình tiên tiến");
@@ -199,7 +203,7 @@ public class AdminRevenueManagement extends JFrame{
 //                        i++;
 //                    }
 //
-//                    File file = new File("./");
+//                    File file = new File(".\\test.xlsx");
 //                    FileOutputStream fileOutputStream = new FileOutputStream(file);
 //                    xssfWorkbook.write(fileOutputStream);
 //                    fileOutputStream.close();
@@ -210,8 +214,8 @@ public class AdminRevenueManagement extends JFrame{
 //                catch (IOException ioException) {
 //                    ioException.printStackTrace();
 //                }
-            }
-        });
+//            }
+//        });
         btn_ExportPDF.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

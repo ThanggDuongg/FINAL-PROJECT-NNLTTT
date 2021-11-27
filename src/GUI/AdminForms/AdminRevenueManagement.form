@@ -56,7 +56,7 @@
         <children>
           <component id="5b746" class="javax.swing.JButton" binding="btn_ExportPDF">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Arial" size="20" style="1"/>
@@ -77,15 +77,6 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="31e04" class="javax.swing.JButton" binding="btn_ExportExcel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Arial" size="20" style="1"/>
-              <text value="Export file to Excel"/>
-            </properties>
-          </component>
         </children>
       </grid>
       <component id="c441a" class="javax.swing.JLabel">
