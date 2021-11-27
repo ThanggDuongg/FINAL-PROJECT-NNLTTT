@@ -275,6 +275,7 @@ public class CustomerGUI extends JFrame{
                    index = index == -1 ? 0 : index;
                    TableModel tableModel = table_Menu.getModel();
                    Integer productId = Integer.parseInt(tableModel.getValueAt(index, 0).toString().trim());
+
                    String tag = tableModel.getValueAt(index, 4).toString().trim();
                    int quantityInMenu = Integer.parseInt(tableModel.getValueAt(index, 2).toString().trim());
                    if (quantityInMenu > 0) {
@@ -287,11 +288,29 @@ public class CustomerGUI extends JFrame{
                            }
                        }
                        else {
-                           int quantity = MenuBeverageBUS.getByDaysAndId(productId, day).getQuantity() - 1;
-                           if (menuBeverageBUS.update(productId, day, quantity)) {
-                               CartBUS.addCart(productId, tag);
-                               loadMenuByDaysInWeek(day);
-                               loadOrder();
+                           BeverageDTO beverageDTO = beverageBUS.findById(productId);
+                           CustomerDTO customerDTO = customerBUS.findById(Globals.getGlobalCustomerId());
+
+                           if (customerDTO.getAge() >= 18) {
+                               int quantity = MenuBeverageBUS.getByDaysAndId(productId, day).getQuantity() - 1;
+                               if (menuBeverageBUS.update(productId, day, quantity)) {
+                                   CartBUS.addCart(productId, tag);
+                                   loadMenuByDaysInWeek(day);
+                                   loadOrder();
+                               }
+                           }
+                           else {
+                               if (beverageDTO.getAcoholeByVolume() > 0) {
+                                   //Message box ko đủ tuổi mua đồ uống có cồn
+                               }
+                               else {
+                                   int quantity = MenuBeverageBUS.getByDaysAndId(productId, day).getQuantity() - 1;
+                                   if (menuBeverageBUS.update(productId, day, quantity)) {
+                                       CartBUS.addCart(productId, tag);
+                                       loadMenuByDaysInWeek(day);
+                                       loadOrder();
+                                   }
+                               }
                            }
                        }
                    }
