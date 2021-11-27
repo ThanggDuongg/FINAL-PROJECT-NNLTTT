@@ -36,150 +36,6 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <grid id="42c5a" layout-manager="GridLayoutManager" row-count="6" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
-                    <constraints>
-                      <tabbedpane title="Foods"/>
-                    </constraints>
-                    <properties/>
-                    <border type="none"/>
-                    <children>
-                      <component id="c48d" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="16" style="1"/>
-                          <text value="Name:"/>
-                        </properties>
-                      </component>
-                      <component id="1e943" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="16" style="1"/>
-                          <text value="Price:"/>
-                        </properties>
-                      </component>
-                      <component id="feabc" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="16" style="1"/>
-                          <text value="Quantity:"/>
-                        </properties>
-                      </component>
-                      <component id="50c6d" class="javax.swing.JButton" default-binding="true">
-                        <constraints>
-                          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="20" style="1"/>
-                          <text value="Delete"/>
-                        </properties>
-                      </component>
-                      <component id="12e91" class="javax.swing.JButton" default-binding="true">
-                        <constraints>
-                          <grid row="4" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="20" style="1"/>
-                          <text value="Insert"/>
-                        </properties>
-                      </component>
-                      <component id="ede15" class="javax.swing.JButton" binding="updateButton1" default-binding="true">
-                        <constraints>
-                          <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="20" style="1"/>
-                          <text value="Update"/>
-                        </properties>
-                      </component>
-                      <hspacer id="6ccaf">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                      </hspacer>
-                      <component id="2c056" class="javax.swing.JTable" binding="table1" default-binding="true">
-                        <constraints>
-                          <grid row="1" column="0" row-span="5" col-span="5" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="50"/>
-                          </grid>
-                        </constraints>
-                        <properties/>
-                      </component>
-                      <hspacer id="207c7">
-                        <constraints>
-                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                      </hspacer>
-                      <component id="1778d" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                            <preferred-size width="388" height="33"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Consolas" size="28" style="1"/>
-                          <text value="Foods"/>
-                        </properties>
-                      </component>
-                      <hspacer id="a3bc4">
-                        <constraints>
-                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                      </hspacer>
-                      <hspacer id="63f0a">
-                        <constraints>
-                          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                      </hspacer>
-                      <component id="7f278" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                            <preferred-size width="388" height="33"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Consolas" size="28" style="1"/>
-                          <text value="Food List"/>
-                        </properties>
-                      </component>
-                      <component id="8653c" class="javax.swing.JTextField" default-binding="true">
-                        <constraints>
-                          <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="14" style="0"/>
-                        </properties>
-                      </component>
-                      <component id="bf68e" class="javax.swing.JTextField" default-binding="true">
-                        <constraints>
-                          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="14" style="0"/>
-                        </properties>
-                      </component>
-                      <component id="f8bef" class="javax.swing.JTextField" default-binding="true">
-                        <constraints>
-                          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <font name="Arial" size="14" style="0"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </grid>
                   <grid id="55b13" layout-manager="GridLayoutManager" row-count="9" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
@@ -198,14 +54,6 @@
                           <font name="Consolas" size="28" style="1"/>
                           <text value="Beverage List"/>
                         </properties>
-                      </component>
-                      <component id="52ed5" class="javax.swing.JTable" default-binding="true">
-                        <constraints>
-                          <grid row="1" column="0" row-span="8" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="50"/>
-                          </grid>
-                        </constraints>
-                        <properties/>
                       </component>
                       <component id="d3e15" class="javax.swing.JLabel">
                         <constraints>
@@ -263,11 +111,12 @@
                           <text value="Acohole:"/>
                         </properties>
                       </component>
-                      <component id="78d7e" class="javax.swing.JRadioButton" binding="yesRadioButton" default-binding="true">
+                      <component id="78d7e" class="javax.swing.JRadioButton" binding="radio_BtnYes">
                         <constraints>
                           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
+                          <selected value="false"/>
                           <text value="Yes"/>
                         </properties>
                       </component>
@@ -280,7 +129,7 @@
                           <text value="Acohole by Volume:"/>
                         </properties>
                       </component>
-                      <component id="9a5dc" class="javax.swing.JRadioButton" binding="noRadioButton" default-binding="true">
+                      <component id="9a5dc" class="javax.swing.JRadioButton" binding="radio_BtnNo">
                         <constraints>
                           <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -288,16 +137,16 @@
                           <text value="No"/>
                         </properties>
                       </component>
-                      <component id="64dba" class="javax.swing.JButton" default-binding="true">
+                      <component id="64dba" class="javax.swing.JButton" binding="btn_InsertBeverage">
                         <constraints>
-                          <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="7" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <font name="Arial" size="20" style="1"/>
                           <text value="Insert"/>
                         </properties>
                       </component>
-                      <component id="3b3d1" class="javax.swing.JButton" default-binding="true">
+                      <component id="3b3d1" class="javax.swing.JButton" binding="btn_UpdateBeverage">
                         <constraints>
                           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -306,7 +155,7 @@
                           <text value="Update"/>
                         </properties>
                       </component>
-                      <component id="a7419" class="javax.swing.JButton" default-binding="true">
+                      <component id="a7419" class="javax.swing.JButton" binding="btn_DeleteBeverage">
                         <constraints>
                           <grid row="8" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -315,7 +164,7 @@
                           <text value="Delete"/>
                         </properties>
                       </component>
-                      <component id="866be" class="javax.swing.JTextField" default-binding="true">
+                      <component id="866be" class="javax.swing.JTextField" binding="txt_NameBeverage">
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -325,7 +174,7 @@
                           <font name="Arial" size="14" style="0"/>
                         </properties>
                       </component>
-                      <component id="dc6b8" class="javax.swing.JTextField" default-binding="true">
+                      <component id="dc6b8" class="javax.swing.JTextField" binding="txt_NameManufaturerBeverage">
                         <constraints>
                           <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -335,7 +184,7 @@
                           <font name="Arial" size="14" style="0"/>
                         </properties>
                       </component>
-                      <component id="f24ac" class="javax.swing.JTextField" default-binding="true">
+                      <component id="f24ac" class="javax.swing.JTextField" binding="txt_QuantityBeverage">
                         <constraints>
                           <grid row="3" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -345,7 +194,7 @@
                           <font name="Arial" size="14" style="0"/>
                         </properties>
                       </component>
-                      <component id="67ed0" class="javax.swing.JTextField" default-binding="true">
+                      <component id="67ed0" class="javax.swing.JTextField" binding="txt_PriceBeverage">
                         <constraints>
                           <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -355,7 +204,7 @@
                           <font name="Arial" size="14" style="0"/>
                         </properties>
                       </component>
-                      <component id="c6bcf" class="javax.swing.JTextField" default-binding="true">
+                      <component id="c6bcf" class="javax.swing.JTextField" binding="txt_AcoholeByVolBeverage">
                         <constraints>
                           <grid row="6" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -363,6 +212,186 @@
                         </constraints>
                         <properties>
                           <font name="Arial" size="14" style="0"/>
+                        </properties>
+                      </component>
+                      <scrollpane id="aae54">
+                        <constraints>
+                          <grid row="1" column="0" row-span="8" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <component id="52ed5" class="javax.swing.JTable" binding="table_Beverages">
+                            <constraints/>
+                            <properties/>
+                          </component>
+                        </children>
+                      </scrollpane>
+                      <component id="fd941" class="javax.swing.JButton" binding="btn_ResetBeverage">
+                        <constraints>
+                          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="20" style="1"/>
+                          <text value="Reset"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="42c5a" binding="pnl_Foods" layout-manager="GridLayoutManager" row-count="6" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <tabbedpane title="Foods"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="c48d" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="16" style="1"/>
+                          <text value="Name:"/>
+                        </properties>
+                      </component>
+                      <component id="1e943" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="16" style="1"/>
+                          <text value="Price:"/>
+                        </properties>
+                      </component>
+                      <component id="feabc" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="16" style="1"/>
+                          <text value="Quantity:"/>
+                        </properties>
+                      </component>
+                      <component id="50c6d" class="javax.swing.JButton" binding="btn_DeleteFood">
+                        <constraints>
+                          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="20" style="1"/>
+                          <text value="Delete"/>
+                        </properties>
+                      </component>
+                      <component id="12e91" class="javax.swing.JButton" binding="btn_InsertFood">
+                        <constraints>
+                          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="20" style="1"/>
+                          <text value="Insert"/>
+                        </properties>
+                      </component>
+                      <component id="ede15" class="javax.swing.JButton" binding="btn_UpdateFood">
+                        <constraints>
+                          <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="20" style="1"/>
+                          <text value="Update"/>
+                        </properties>
+                      </component>
+                      <hspacer id="6ccaf">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="207c7">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <component id="1778d" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="388" height="33"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Consolas" size="28" style="1"/>
+                          <text value="Foods"/>
+                        </properties>
+                      </component>
+                      <hspacer id="a3bc4">
+                        <constraints>
+                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="63f0a">
+                        <constraints>
+                          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <component id="7f278" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="388" height="33"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Consolas" size="28" style="1"/>
+                          <text value="Food List"/>
+                        </properties>
+                      </component>
+                      <component id="8653c" class="javax.swing.JTextField" binding="txt_NameFood">
+                        <constraints>
+                          <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="14" style="0"/>
+                        </properties>
+                      </component>
+                      <component id="bf68e" class="javax.swing.JTextField" binding="txt_PriceFood">
+                        <constraints>
+                          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="14" style="0"/>
+                        </properties>
+                      </component>
+                      <component id="f8bef" class="javax.swing.JTextField" binding="txt_QuantityFood">
+                        <constraints>
+                          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="14" style="0"/>
+                        </properties>
+                      </component>
+                      <scrollpane id="73e5c">
+                        <constraints>
+                          <grid row="1" column="0" row-span="5" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <component id="2c056" class="javax.swing.JTable" binding="table_Foods">
+                            <constraints/>
+                            <properties/>
+                          </component>
+                        </children>
+                      </scrollpane>
+                      <component id="6a266" class="javax.swing.JButton" binding="btn_ResetFoods">
+                        <constraints>
+                          <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font name="Arial" size="20" style="1"/>
+                          <text value="Reset"/>
                         </properties>
                       </component>
                     </children>
@@ -389,14 +418,6 @@
                   <font name="Consolas" size="28" style="1"/>
                   <text value="Menu"/>
                 </properties>
-              </component>
-              <component id="fc63d" class="javax.swing.JTable" binding="table2" default-binding="true">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
-                </constraints>
-                <properties/>
               </component>
               <component id="cf49" class="javax.swing.JLabel">
                 <constraints>
@@ -429,23 +450,7 @@
                   <text value="Foods List"/>
                 </properties>
               </component>
-              <component id="7e787" class="javax.swing.JTable" binding="table3" default-binding="true">
-                <constraints>
-                  <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="908bf" class="javax.swing.JTable" binding="table4" default-binding="true">
-                <constraints>
-                  <grid row="1" column="3" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="63137" class="javax.swing.JButton" default-binding="true">
+              <component id="63137" class="javax.swing.JButton" binding="btn_RemoveFromMenu">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -454,7 +459,7 @@
                   <text value="Remove from menu"/>
                 </properties>
               </component>
-              <component id="cbae2" class="javax.swing.JButton" default-binding="true">
+              <component id="cbae2" class="javax.swing.JButton" binding="btn_InsertFoodToMenu">
                 <constraints>
                   <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -463,7 +468,7 @@
                   <text value="Insert to menu"/>
                 </properties>
               </component>
-              <component id="5e07d" class="javax.swing.JButton" default-binding="true">
+              <component id="5e07d" class="javax.swing.JButton" binding="btn_InsertBeverageToMenu">
                 <constraints>
                   <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -472,18 +477,72 @@
                   <text value="Insert to menu"/>
                 </properties>
               </component>
-              <component id="c7b6c" class="javax.swing.JComboBox" default-binding="true">
+              <component id="c7b6c" class="javax.swing.JComboBox" binding="cb_DaysInWeek">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Arial" size="14" style="0"/>
+                  <model>
+                    <item value="Sunday"/>
+                    <item value="Monday"/>
+                    <item value="Tuesday"/>
+                    <item value="Wednesday"/>
+                    <item value="Thursday"/>
+                    <item value="Friday"/>
+                    <item value="Staturday"/>
+                  </model>
                 </properties>
               </component>
+              <scrollpane id="83a4c">
+                <constraints>
+                  <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="7e787" class="javax.swing.JTable" binding="table_AllFoods">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <scrollpane id="363a8">
+                <constraints>
+                  <grid row="1" column="3" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="908bf" class="javax.swing.JTable" binding="table_AllBeverages">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <scrollpane id="20349">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="fc63d" class="javax.swing.JTable" binding="table_Menu">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
         </children>
       </tabbedpane>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="btn_GroupIsAcohole">
+      <member id="78d7e"/>
+      <member id="9a5dc"/>
+    </group>
+  </buttonGroups>
 </form>

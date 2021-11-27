@@ -1,10 +1,13 @@
 package GUI;
 
+import BUS.AdministratorBUS;
+import BUS.CustomerBUS;
+import BUS.ShipperBUS;
+import DTO.CartDTO;
 import GUI.AdminForms.AdminGUI;
-import GUI.AdminForms.AdminMenuManagementGUI;
 import GUI.CustomerForms.CustomerGUI;
 import GUI.ShipperForms.ShipperGUI;
-import org.w3c.dom.css.RGBColor;
+import Globals.Cart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,16 +15,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginGUI extends JFrame{
 
-    private JButton loginButton;
-    private JRadioButton customerRadioButton;
-    private JRadioButton shipperRadioButton;
-    private JRadioButton administratorRadioButton;
+    private JButton btn_Login;
+    private JRadioButton radioBtn_Customer;
+    private JRadioButton radioBtn_Shipper;
+    private JRadioButton radioBtn_Admin;
     private JPanel mainPanel;
-    private JLabel lbforgotPassWord;
-    private JLabel lbNewAccount;
+    private JLabel Link_ForgotPassword;
+    private JLabel Link_Register;
+    private JTextField txt_Email;
+    private JTextField txt_Password;
 
 
     public LoginGUI() {
@@ -31,10 +38,10 @@ public class LoginGUI extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-        lbforgotPassWord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lbNewAccount.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Link_ForgotPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Link_Register.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        lbforgotPassWord.addMouseListener(new MouseAdapter() {
+        Link_ForgotPassword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -46,15 +53,15 @@ public class LoginGUI extends JFrame{
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                lbforgotPassWord.setForeground(Color.BLUE.brighter());
+                Link_ForgotPassword.setForeground(Color.BLUE.brighter());
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                lbforgotPassWord.setForeground(new Color(76, 79, 81));
+                Link_ForgotPassword.setForeground(new Color(76, 79, 81));
             }
         });
-        lbNewAccount.addMouseListener(new MouseAdapter() {
+        Link_Register.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -66,28 +73,36 @@ public class LoginGUI extends JFrame{
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                lbNewAccount.setForeground(Color.BLUE.brighter());
+                Link_Register.setForeground(Color.BLUE.brighter());
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                lbNewAccount.setForeground(new Color(76, 79, 81));
+                Link_Register.setForeground(new Color(76, 79, 81));
             }
         });
-        loginButton.addActionListener(new ActionListener() {
+        btn_Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(customerRadioButton.isSelected()) {
-                    CustomerGUI customerGUI = new CustomerGUI();
-                    dispose();
+                String email = txt_Email.getText().trim();
+                String password = txt_Password.getText().trim();
+                if(radioBtn_Customer.isSelected()) {
+                    if (CustomerBUS.checkLogin(email, password) == 1) {
+                        CustomerGUI customerGUI = new CustomerGUI();
+                        dispose();
+                    }
                 }
-                else if(shipperRadioButton.isSelected()) {
-                    ShipperGUI shipperGUI = new ShipperGUI();
-                    dispose();
+                else if(radioBtn_Shipper.isSelected()) {
+                    if (ShipperBUS.checkLogin(email, password) == 1) {
+                        ShipperGUI shipperGUI = new ShipperGUI();
+                        dispose();
+                    }
                 }
-                else if(administratorRadioButton.isSelected()) {
-                    AdminGUI adminGUI = new AdminGUI();
-                    dispose();
+                else if(radioBtn_Admin.isSelected()) {
+                    if (AdministratorBUS.checkLogin(email, password) == 1) {
+                        AdminGUI adminGUI = new AdminGUI();
+                        dispose();
+                    }
                 }
             }
         });
