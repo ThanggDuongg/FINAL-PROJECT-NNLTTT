@@ -7,13 +7,53 @@ import SQLConnection.MySQL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO implements GenericDAO<CustomerDTO> {
 
     @Override
     public List<CustomerDTO> getAll() {
-        return null;
+        ArrayList<CustomerDTO> customerDTOArrayList = new ArrayList<CustomerDTO>();
+        try {
+            //insert query
+            String query = "SELECT * FROM persons WHERE Role = 2";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer ID = resultSet.getInt(1);
+                String firstname = resultSet.getString(2);
+                String lastname = resultSet.getString(3);
+                String phone = resultSet.getString(4);
+                String gender = resultSet.getString(5);
+                int age = resultSet.getInt(6);
+                String address = resultSet.getString(7);
+                Double distance = resultSet.getDouble(8);
+                String email = resultSet.getString(10);
+                String password = resultSet.getString(11);
+
+                CustomerDTO customerDTO = new CustomerDTO(ID, firstname, lastname, phone, gender, age, email, password, address, distance);
+                customerDTOArrayList.add(customerDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return customerDTOArrayList;
+        }
     }
 
     @Override
@@ -251,6 +291,33 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
         }
         finally {
             return customerDTO;
+        }
+    }
+
+    public static boolean deleteByEmail(String email) {
+        boolean status = false;
+        try {
+            //insert query
+            String query = "DELETE FROM persons where Email = ?";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+            preparedStmt.setString (1, email);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            int result = preparedStmt.executeUpdate();
+
+            status = result == 0 ? false : true;
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return status;
         }
     }
 }

@@ -7,12 +7,52 @@ import SQLConnection.MySQL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShipperDAO implements GenericDAO<ShipperDTO> {
     @Override
     public List<ShipperDTO> getAll() {
-        return null;
+        ArrayList<ShipperDTO> shipperDTOArrayList = new ArrayList<ShipperDTO>();
+        try {
+            //insert query
+            String query = "SELECT * FROM persons WHERE Role = 3";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer ID = resultSet.getInt(1);
+                String firstname = resultSet.getString(2);
+                String lastname = resultSet.getString(3);
+                String phone = resultSet.getString(4);
+                String gender = resultSet.getString(5);
+                int age = resultSet.getInt(6);
+                Double salary = resultSet.getDouble(9);
+                String email = resultSet.getString(10);
+                String password = resultSet.getString(11);
+
+                ShipperDTO shipperDTO = new ShipperDTO(ID, firstname, lastname, phone, gender, age, email, password, salary);
+                shipperDTOArrayList.add(shipperDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return shipperDTOArrayList;
+        }
     }
 
     @Override
@@ -53,7 +93,39 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
 
     @Override
     public Boolean insert(ShipperDTO DTO) {
-        return null;
+        boolean status = false;
+        try {
+            //insert query
+            String query = "INSERT INTO persons(Firstname, Lastname, Phone, Gender, Age, Salary, Email, Password, Role) " +
+                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+            preparedStmt.setString (1, DTO.getFirstname());
+            preparedStmt.setString (2, DTO.getLastname());
+            preparedStmt.setString  (3, DTO.getPhone());
+            preparedStmt.setString(4, DTO.getGender());
+            preparedStmt.setInt(5, DTO.getAge());
+            preparedStmt.setDouble(6, DTO.getSalary());
+            preparedStmt.setString(7, DTO.getEmail());
+            preparedStmt.setString(8, DTO.getPassword());
+            preparedStmt.setInt(9, 3);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            int result = preparedStmt.executeUpdate();
+
+            status = result == 0 ? false : true;
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return status;
+        }
     }
 
     @Override
@@ -179,6 +251,71 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         }
         finally {
             return shipperDTO;
+        }
+    }
+
+    public static boolean deleteByEmail(String email) {
+        boolean status = false;
+        try {
+            //insert query
+            String query = "DELETE FROM persons where Email = ?";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+            preparedStmt.setString (1, email);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            int result = preparedStmt.executeUpdate();
+
+            status = result == 0 ? false : true;
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return status;
+        }
+    }
+
+    public static int insertReturnId(ShipperDTO DTO) {
+        int id = -1;
+        try {
+            //insert query
+            String query = "INSERT INTO persons(Firstname, Lastname, Phone, Gender, Age, Salary, Email, Password, Role) " +
+                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStmt.setString (1, DTO.getFirstname());
+            preparedStmt.setString (2, DTO.getLastname());
+            preparedStmt.setString  (3, DTO.getPhone());
+            preparedStmt.setString(4, DTO.getGender());
+            preparedStmt.setInt(5, DTO.getAge());
+            preparedStmt.setDouble(6, DTO.getSalary());
+            preparedStmt.setString(7, DTO.getEmail());
+            preparedStmt.setString(8, DTO.getPassword());
+            preparedStmt.setInt(9, 3);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            int result = preparedStmt.executeUpdate();
+
+            ResultSet tableKeys = preparedStmt.getGeneratedKeys();
+            tableKeys.next();
+            id = tableKeys.getInt(1);
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return id;
         }
     }
 }

@@ -1,34 +1,74 @@
 package BUS;
 
+import DAO.AdministratorDAO;
+import DAO.CustomerDAO;
 import DAO.ShipperDAO;
+import DAO.StatusOfShipperDAO;
+import DTO.CustomerDTO;
 import DTO.ShipperDTO;
+import DTO.StatusOfShipperDTO;
 import Globals.Globals;
+
+import java.util.List;
 
 public class ShipperBUS {
     private ShipperDAO shipperDAO = new ShipperDAO();
+    private StatusOfShipperDAO statusOfShipperDAO = new StatusOfShipperDAO();
 
-    public int indexGender(String gender) {
-        if (gender.equals("Male")) {
-            return 0;
-        }
-        else if (gender.equals("Female")) {
-            return 1;
+    public int insertAccount(String firstname, String lastname, String phone, String gender, int age, String email, String password, double salary){
+        if (checkNullFieldsAccount(firstname, lastname, phone, gender, age, email, password) && salary != 0) {
+            ShipperDTO shipperDTO = new ShipperDTO(firstname, lastname, phone, gender, age, email, password, salary);
+            int idShipper = ShipperDAO.insertReturnId(shipperDTO);
+            if (idShipper != -1) {
+                statusOfShipperDAO.insert(new StatusOfShipperDTO(idShipper, false));
+                System.out.println("Successfully");
+                return 1;
+            }
+            else {
+                System.out.println("Unsuccessfully");
+                return 2;
+            }
         }
         else {
-            return 2;
+            System.out.println("Fields Null");
+            return 3;
         }
     }
 
-    public ShipperDTO findById() {
-        Integer ShipperId = Globals.getGlobalShipperId();
-        ShipperDTO shipperDTO = this.shipperDAO.findById(ShipperId);
+    public static int deleteByEmail(String email) {
+        if (!email.equals("")) {
+            if (CustomerDAO.deleteByEmail(email)) {
+                System.out.println("Sucessfully");
+                return 1;
+            }
+            else {
+                System.out.println("Unsucessfully");
+                return 2;
+            }
+        }
+        else {
+            System.out.println("Fields Null");
+            return 3;
+        }
+    }
+
+    public static ShipperDTO findByEmail(String Email) {
+        return ShipperDAO.findByEmail(Email.trim());
+    }
+
+    public List<ShipperDTO> shipperDTOList() {
+        return this.shipperDAO.getAll();
+    }
+
+    public ShipperDTO findById(Integer shipperId) {
+        //Integer ShipperId = Globals.getGlobalShipperId();
+        ShipperDTO shipperDTO = this.shipperDAO.findById(shipperId);
         return shipperDTO;
     }
 
-    public int updateAccount(String firstname, String lastname, String phone, String gender, int age, double salary, String email, String password) {
+    public int updateAccount(Integer Id, String firstname, String lastname, String phone, String gender, int age, double salary, String email, String password) {
         if (checkNullFieldsAccount(firstname, lastname, phone, gender, age, email, password)) {
-            Integer shipperId = Globals.getGlobalShipperId();
-            ShipperDTO shipperDTO = new ShipperDTO(shipperId, firstname, lastname, phone, gender, age, email, password, salary);
+            ShipperDTO shipperDTO = new ShipperDTO(Id, firstname, lastname, phone, gender, age, email, password, salary);
             if (this.shipperDAO.update(shipperDTO)) {
                 System.out.println("Sucessfully");
                 return 1;
@@ -51,7 +91,6 @@ public class ShipperBUS {
         }
         return true;
     }
-
 
     public static int checkLogin(String email, String password) {
         if (BUS.checkNullFieldsLogin(email, password)) {

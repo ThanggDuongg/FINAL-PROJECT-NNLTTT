@@ -1,11 +1,84 @@
 package BUS;
 
+import DAO.AdministratorDAO;
 import DAO.CustomerDAO;
 import DTO.CustomerDTO;
 import Globals.Globals;
 
+import java.text.ParsePosition;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerBUS {
     private CustomerDAO customerDAO = new CustomerDAO();
+
+    public int insertAccount(String firstname, String lastname, String phone, String gender, int age, String address, String email, String password){
+        double distance = this.randomeDistance();
+        if (this.checkNullFieldsRegister(firstname, lastname, phone, gender, age, address, email, password, password)) {
+            CustomerDTO customerDTO = new CustomerDTO(firstname, lastname, phone, gender, age, email, password, address, distance);
+            if (this.customerDAO.insert(customerDTO)) {
+                System.out.println("Successfully");
+                return 1;
+            }
+            else {
+                System.out.println("Unsuccessfully");
+                return 2;
+            }
+        }
+        else {
+            System.out.println("Fields Null");
+            return 3;
+        }
+    }
+
+    public static int deleteByEmail(String email) {
+        if (!email.equals("")) {
+            if (CustomerDAO.deleteByEmail(email)) {
+                System.out.println("Sucessfully");
+                return 1;
+            }
+            else {
+                System.out.println("Unsucessfully");
+                return 2;
+            }
+        }
+        else {
+            System.out.println("Fields Null");
+            return 3;
+        }
+    }
+
+    public static CustomerDTO findByEmail(String Email) {
+        return CustomerDAO.findByEmail(Email.trim());
+    }
+
+    public List<CustomerDTO> customerDTOArrayList() {
+        return this.customerDAO.getAll();
+    }
+
+    public CustomerDTO findById(Integer customerId) {
+        //Integer customerId = Globals.getGlobalCustomerId();
+        CustomerDTO customerDTO = this.customerDAO.findById(customerId);
+        return customerDTO;
+    }
+
+    public int updateAccount(Integer Id, String firstname, String lastname, String phone, String gender, int age, String address, String email, String password, Double distance) {
+        if (checkNullFieldsRegister(firstname, lastname, phone, gender, age, address, email, password, "a")) {
+            CustomerDTO customerDTO = new CustomerDTO(Id, firstname, lastname, phone, gender, age, email, password, address, distance);
+            if (this.customerDAO.update(customerDTO)) {
+                System.out.println("Sucessfully");
+                return 1;
+            }
+            else {
+                System.out.println("Unsucessfully");
+                return 2;
+            }
+        }
+        else {
+            System.out.println("Fields Null");
+            return 3;
+        }
+    }
 
     public int forgotPassword(String email, String newpassword, String Retypenewpassword) {
         //check null

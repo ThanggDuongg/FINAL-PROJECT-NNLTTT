@@ -36,6 +36,11 @@ public class ShipperDTO extends AbstractPerson {
         Salary = salary;
     }
 
+    public ShipperDTO(String firstname, String lastname, String phone, String gender, int age, String email, String password, double salary) {
+        super(firstname, lastname, phone, gender, age, email, password);
+        Salary = salary;
+    }
+
     //getter & setter
     public double getSalary() {
         return Salary;

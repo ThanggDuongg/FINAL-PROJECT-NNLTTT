@@ -7,4 +7,16 @@ public class BUS {
         }
         return true;
     }
+
+    public static int indexGender(String gender) {
+        if (gender.equals("Male")) {
+            return 0;
+        }
+        else if (gender.equals("Female")) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
+    }
 }

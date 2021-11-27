@@ -307,4 +307,31 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
             return administratorDTO;
         }
     }
+
+    public static boolean deleteByEmail(String email) {
+        boolean status = false;
+        try {
+            //insert query
+            String query = "DELETE FROM persons where Email = ?";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+            preparedStmt.setString (1, email);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            int result = preparedStmt.executeUpdate();
+
+            status = result == 0 ? false : true;
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return status;
+        }
+    }
 }
