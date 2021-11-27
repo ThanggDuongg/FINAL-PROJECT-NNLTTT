@@ -140,6 +140,7 @@ public class ShipperGUI extends JFrame{
         bnt_Delivered.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                statusOfShipperBUS.changeStatusShipper(new StatusOfShipperDTO(Globals.getGlobalShipperId(), false));
                 int index = table_Orders.getSelectedRow();
                 index = index == -1 ? 0 : index;
                 TableModel tableModel = table_Orders.getModel();

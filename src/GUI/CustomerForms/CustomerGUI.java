@@ -398,13 +398,19 @@ public class CustomerGUI extends JFrame{
             ReviewDTO reviewDTO = ReviewBUS.getByCustomerAndOrder(orderId, Globals.getGlobalCustomerId());
             System.out.println(reviewDTO.getId());
             boolean status = Boolean.valueOf(tableModel.getValueAt(index, 4).toString().trim());
-            if (reviewDTO.getId() != null || !status) {
+
+            if (reviewDTO.getId() != null) {
                 sp_Rating.setValue(reviewDTO.getRating());
                 text_Review.setText(reviewDTO.getComment().trim());
                 btn_SubmitReview.setEnabled(false);
             }
             else {
-                btn_SubmitReview.setEnabled(true);
+                if (status == false) {
+                    btn_SubmitReview.setEnabled(false);
+                }
+                else {
+                    btn_SubmitReview.setEnabled(true);
+                }
             }
             }
         });

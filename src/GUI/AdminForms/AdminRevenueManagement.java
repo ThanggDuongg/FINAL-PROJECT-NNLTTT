@@ -100,7 +100,7 @@ public class AdminRevenueManagement extends JFrame{
         for (int i = 0; i < orderDTOList.size(); i++)
             series.add(orderDTOList.get(i).getQuantity(), orderDTOList.get(i).getTotal());
         XYSeriesCollection dataset = new XYSeriesCollection(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("Revenue Line Chart", "Total", "Quantity", dataset, PlotOrientation.HORIZONTAL, true, true, true);
+        JFreeChart chart = ChartFactory.createXYLineChart("Revenue Line Chart", "Quantity", "Total", dataset, PlotOrientation.HORIZONTAL, true, true, true);
         ChartPanel chartpanel = new ChartPanel(chart);
         chartpanel.setDomainZoomable(true);
 
