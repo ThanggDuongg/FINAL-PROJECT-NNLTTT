@@ -46,6 +46,7 @@ public class LoginGUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 try {
                     ForgotPasswordGUI forgotPasswordGUI = new ForgotPasswordGUI();
+                    dispose();
                 }
                 catch(Exception ex) {
                     System.out.println(ex.getMessage());
@@ -66,6 +67,7 @@ public class LoginGUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 try {
                     RegisterGUI registerGUI = new RegisterGUI();
+                    dispose();
                 }
                 catch(Exception ex) {
                     System.out.println(ex.getMessage());

@@ -40,7 +40,12 @@ public class RegisterGUI extends JFrame{
                 String password = txt_Password.getText().trim();
                 String retypePassword = txt_Retypepasswd.getText().trim();
                 CustomerBUS customerBUS = new CustomerBUS();
-                customerBUS.Insert(firstname, lastname, phone, gender, age, address, email, password, retypePassword);
+                if (customerBUS.Insert(firstname, lastname, phone, gender, age, address, email, password, retypePassword) == 1) {
+                    LoginGUI loginGUI = new LoginGUI();
+                }
+                else {
+                    //
+                }
             }
         });
     }
