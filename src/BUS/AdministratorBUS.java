@@ -11,6 +11,10 @@ import java.util.List;
 public class AdministratorBUS {
     private AdministratorDAO administratorDAO = new AdministratorDAO();
 
+    public static List<AdministratorDTO> getAll_Search(String search) {
+        return AdministratorDAO.getAll_Search(search);
+    }
+
     public int insertAccount(String firstname, String lastname, String phone, String gender, int age, String email, String password){
         if (checkNullFieldsRegister(firstname, lastname, phone, gender, age, email, password)) {
             AdministratorDTO administratorDTO = new AdministratorDTO(firstname, lastname, phone, gender, age, email, password);

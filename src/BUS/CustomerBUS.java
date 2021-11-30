@@ -2,6 +2,7 @@ package BUS;
 
 import DAO.AdministratorDAO;
 import DAO.CustomerDAO;
+import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import Globals.Globals;
 
@@ -11,6 +12,10 @@ import java.util.List;
 
 public class CustomerBUS {
     private CustomerDAO customerDAO = new CustomerDAO();
+
+    public static List<CustomerDTO> getAll_Search(String search) {
+        return CustomerDAO.getAll_Search(search);
+    }
 
     public int insertAccount(String firstname, String lastname, String phone, String gender, int age, String address, String email, String password){
         double distance = this.randomeDistance();

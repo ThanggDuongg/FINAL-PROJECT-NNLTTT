@@ -320,4 +320,48 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
             return status;
         }
     }
+
+    public static List<CustomerDTO> getAll_Search(String search) {
+        ArrayList<CustomerDTO> customerDTOArrayList = new ArrayList<CustomerDTO>();
+        try {
+            //insert query
+            String query = "SELECT * FROM persons WHERE Role = 2 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer ID = resultSet.getInt(1);
+                String firstname = resultSet.getString(2);
+                String lastname = resultSet.getString(3);
+                String phone = resultSet.getString(4);
+                String gender = resultSet.getString(5);
+                int age = resultSet.getInt(6);
+                String address = resultSet.getString(7);
+                Double distance = resultSet.getDouble(8);
+                String email = resultSet.getString(10);
+                String password = resultSet.getString(11);
+
+                CustomerDTO customerDTO = new CustomerDTO(ID, firstname, lastname, phone, gender, age, email, password, address, distance);
+                customerDTOArrayList.add(customerDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return customerDTOArrayList;
+        }
+    }
 }

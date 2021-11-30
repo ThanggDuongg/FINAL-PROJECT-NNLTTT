@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.DAOImpl.GenericDAO;
+import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.ShipperDTO;
 import SQLConnection.MySQL;
@@ -316,6 +317,49 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         }
         finally {
             return id;
+        }
+    }
+
+    public static List<ShipperDTO> getAll_Search(String search) {
+        ArrayList<ShipperDTO> shipperDTOArrayList = new ArrayList<ShipperDTO>();
+        try {
+            //insert query
+            String query = "SELECT * FROM persons WHERE Role = 3 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer ID = resultSet.getInt(1);
+                String firstname = resultSet.getString(2);
+                String lastname = resultSet.getString(3);
+                String phone = resultSet.getString(4);
+                String gender = resultSet.getString(5);
+                int age = resultSet.getInt(6);
+                Double salary = resultSet.getDouble(9);
+                String email = resultSet.getString(10);
+                String password = resultSet.getString(11);
+
+                ShipperDTO shipperDTO = new ShipperDTO(ID, firstname, lastname, phone, gender, age, email, password, salary);
+                shipperDTOArrayList.add(shipperDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return shipperDTOArrayList;
         }
     }
 }
