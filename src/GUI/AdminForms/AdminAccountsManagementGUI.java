@@ -4,12 +4,18 @@ import BUS.AdministratorBUS;
 import BUS.CustomerBUS;
 import BUS.ShipperBUS;
 import BUS.BUS;
+import DAO.CustomerDAO;
+import DAO.ShipperDAO;
 import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.ShipperDTO;
 import Globals.Globals;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -17,6 +23,7 @@ import java.awt.event.*;
 import java.util.List;
 
 public class AdminAccountsManagementGUI extends JFrame{
+    private int GlobalFlag = 1;
     private CustomerBUS customerBUS = new CustomerBUS();
     private ShipperBUS shipperBUS = new ShipperBUS();
     private AdministratorBUS administratorBUS = new AdministratorBUS();
@@ -50,11 +57,31 @@ public class AdminAccountsManagementGUI extends JFrame{
     private JButton btn_Reset;
     private JTextField txt_Distance;
     private JTable table_Admins;
+    private JButton btn_Search;
+    private JTextField txt_Search;
 
-    public void loadDataAdmins() {
+    private void loadDataSearch(int flag, String search) {
+        if (GlobalFlag == 1) {
+            loadDataAdmins(flag, search);
+        }
+        else if (GlobalFlag == 2) {
+            loadDataCustomers(flag, search);
+        }
+        else {
+            loadDataShippers(flag, search);
+        }
+    }
+
+    public void loadDataAdmins(int flag, String search) {
         DefaultTableModel model = (DefaultTableModel) table_Admins.getModel();
         model.setRowCount(0);
-        List<AdministratorDTO> administratorDTOList = this.administratorBUS.administratorDTOList();
+        List<AdministratorDTO> administratorDTOList;
+        if (flag == 0) {
+            administratorDTOList = this.administratorBUS.administratorDTOList();
+        }
+        else {
+            administratorDTOList = AdministratorBUS.getAll_Search(search);
+        }
         for (AdministratorDTO item:administratorDTOList) {
             String Email = item.getEmail();
             String Firstname = item.getFirstname();
@@ -66,10 +93,17 @@ public class AdminAccountsManagementGUI extends JFrame{
         }
     }
 
-    public void loadDataShippers() {
+    public void loadDataShippers(int flag, String search) {
         DefaultTableModel model = (DefaultTableModel) table_Shippers.getModel();
         model.setRowCount(0);
-        List<ShipperDTO> shipperDTOList = this.shipperBUS.shipperDTOList();
+        List<ShipperDTO> shipperDTOList;
+        if (flag == 0) {
+            shipperDTOList = this.shipperBUS.shipperDTOList();
+        }
+        else {
+            shipperDTOList = ShipperBUS.getAll_Search(search);
+        }
+
         for (ShipperDTO item:shipperDTOList) {
             String Email = item.getEmail();
             String Firstname = item.getFirstname();
@@ -81,10 +115,16 @@ public class AdminAccountsManagementGUI extends JFrame{
         }
     }
 
-    public void loadDataCustomers() {
+    public void loadDataCustomers(int flag, String search) {
         DefaultTableModel model = (DefaultTableModel) table_Customers.getModel();
         model.setRowCount(0);
-        List<CustomerDTO> customerDTOArrayList = this.customerBUS.customerDTOArrayList();
+        List<CustomerDTO> customerDTOArrayList;
+        if (flag == 0) {
+            customerDTOArrayList = this.customerBUS.customerDTOArrayList();
+        }
+        else {
+            customerDTOArrayList = CustomerBUS.getAll_Search(search);
+        }
         for (CustomerDTO item:customerDTOArrayList) {
             String Email = item.getEmail();
             String Firstname = item.getFirstname();
@@ -137,6 +177,31 @@ public class AdminAccountsManagementGUI extends JFrame{
             }
         });
 
+        txt_Search.getDocument().addDocumentListener(new DocumentListener() {
+            String search = "";
+            int flag = 0;
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search = txt_Search.getText().toString().trim();
+                flag = search.equals("") ? 0 : 1;
+                loadDataSearch(flag, search);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search = txt_Search.getText().toString().trim();
+                flag = search.equals("") ? 0 : 1;
+                loadDataSearch(flag, search);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                search = txt_Search.getText().toString().trim();
+                flag = search.equals("") ? 0 : 1;
+                loadDataSearch(flag, search);
+            }
+        });
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -150,36 +215,76 @@ public class AdminAccountsManagementGUI extends JFrame{
                 cb_GenderAdmin.setSelectedIndex(BUS.indexGender(administratorDTO.getGender().trim()));
                 sp_AgeAdmin.setValue(administratorDTO.getAge());
                 txt_PasswdAdmin.setText(administratorDTO.getPassword().trim());
-                loadDataAdmins();
+                loadDataAdmins(0, "");
             }
         });
-        tabbedPane2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                loadDataCustomers();
-                if (txt_Salary.isEditable()) {
-                    txt_Salary.setEditable(false);
-                }
-                if (!txtAddress.isEditable()) {
-                    txt_Distance.setEditable(true);
-                    txtAddress.setEditable(true);
-                }
-            }
-        });
-        tabbedPane2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                loadDataShippers();
-                if (txt_Distance.isEditable()) {
-                    txt_Distance.setEditable(false);
-                    txtAddress.setEditable(false);
+        tabbedPane2.addChangeListener(new ChangeListener() { //add the Listener
+            public void stateChanged(ChangeEvent e) {
+                String search = txt_Search.getText().trim();
+                int flag = 0;
+                if (!search.equals("")) {
+                    flag = 1;
                 }
 
-                if (!txt_Salary.isEditable()) {
-                    txt_Salary.setEditable(true);
+                if(tabbedPane2.getSelectedIndex() == 0) {
+                    System.out.println("1");
+                    GlobalFlag = 1;
+                    loadDataAdmins(flag, search);
+                }
+                else if (tabbedPane2.getSelectedIndex() == 1) {
+                    GlobalFlag = 2;
+                    loadDataCustomers(flag, search);
+                    if (txt_Salary.isEditable()) {
+                        txt_Salary.setEditable(false);
+                    }
+                    if (!txtAddress.isEditable()) {
+                        txt_Distance.setEditable(true);
+                        txtAddress.setEditable(true);
+                    }
+                }
+                else {
+                    GlobalFlag = 3;
+                    loadDataShippers(flag, search);
+                    if (txt_Distance.isEditable()) {
+                        txt_Distance.setEditable(false);
+                        txtAddress.setEditable(false);
+                    }
+                    if (!txt_Salary.isEditable()) {
+                        txt_Salary.setEditable(true);
+                    }
                 }
             }
         });
+//        tabbedPane2.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                GlobalFlag = 2;
+//                System.out.println("customer");
+//                loadDataCustomers(0, "");
+//                if (txt_Salary.isEditable()) {
+//                    txt_Salary.setEditable(false);
+//                }
+//                if (!txtAddress.isEditable()) {
+//                    txt_Distance.setEditable(true);
+//                    txtAddress.setEditable(true);
+//                }
+//            }
+//        });
+//        tabbedPane2.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                GlobalFlag = 1;
+//                loadDataShippers(0, "");
+//                if (txt_Distance.isEditable()) {
+//                    txt_Distance.setEditable(false);
+//                    txtAddress.setEditable(false);
+//                }
+//
+//                if (!txt_Salary.isEditable()) {
+//                    txt_Salary.setEditable(true);
+//                }
+//            }
+//        });
         table_Customers.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -261,7 +366,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     // form check sure to delete =>
                     if (CustomerBUS.deleteByEmail(email) == 1) {
                         //sc
-                        loadDataCustomers();
+                        loadDataCustomers(0, "");
                         String temp = "";
                         txt_Email.setText(temp);
                         txt_Password.setText(temp);
@@ -282,7 +387,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                 else if (indexRole == 2) {
                     if (ShipperBUS.deleteByEmail(email) == 1) {
                         //sc
-                        loadDataShippers();
+                        loadDataShippers(0, "");
                         String temp = "";
                         txt_Email.setText(temp);
                         txt_Password.setText(temp);
@@ -303,7 +408,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                 else {
                     if (AdministratorBUS.deleteByEmail(email) == 1) {
                         //sc
-                        loadDataAdmins();
+                        loadDataAdmins(0, "");
                         String temp = "";
                         txt_Email.setText(temp);
                         txt_Password.setText(temp);
@@ -341,7 +446,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = CustomerBUS.findByEmail(email).getID();
                     if (customerBUS.updateAccount(Id, firstname, lastname, phone, gender, age, address, email, password, distance) == 1) {
                         //sc
-                        loadDataCustomers();
+                        loadDataCustomers(0, "");
                     }
                     else {
                         //usc
@@ -353,7 +458,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = ShipperBUS.findByEmail(email).getID();
                     if (shipperBUS.updateAccount(Id, firstname, lastname, phone, gender, age, salary, email, password) == 1) {
                         //sc
-                        loadDataShippers();
+                        loadDataShippers(0,"");
                     }
                     else {
                         //unsc
@@ -363,7 +468,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = AdministratorBUS.findByEmail(email).getID();
                     if (administratorBUS.updateAccount(Id, firstname, lastname, phone, gender, age, email, password) == 1) {
                         //sc
-                        loadDataAdmins();
+                        loadDataAdmins(0, "");
                     }
                     else {
                         //unsc
@@ -388,7 +493,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = CustomerBUS.findByEmail(email).getID();
                     if (customerBUS.insertAccount(firstname, lastname, phone, gender, age, address, email, password) == 1) {
                         //sc
-                        loadDataCustomers();
+                        loadDataCustomers(0, "");
                     }
                     else {
                         //usc
@@ -400,7 +505,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = ShipperBUS.findByEmail(email).getID();
                     if (shipperBUS.insertAccount(firstname, lastname, phone, gender, age, email, password, salary) == 1) {
                         //sc
-                        loadDataShippers();
+                        loadDataShippers(0, "");
                     }
                     else {
                         //unsc
@@ -410,7 +515,7 @@ public class AdminAccountsManagementGUI extends JFrame{
                     Integer Id = AdministratorBUS.findByEmail(email).getID();
                     if (administratorBUS.insertAccount(firstname, lastname, phone, gender, age, email, password) == 1) {
                         //sc
-                        loadDataAdmins();
+                        loadDataAdmins(0, "");
                     }
                     else {
                         //unsc
@@ -421,7 +526,7 @@ public class AdminAccountsManagementGUI extends JFrame{
         tabbedPane2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                loadDataAdmins();
+                loadDataAdmins(0, "");
                 txt_Salary.setEditable(false);
                 txt_Distance.setEditable(false);
                 txtAddress.setEditable(false);
@@ -450,5 +555,21 @@ public class AdminAccountsManagementGUI extends JFrame{
                 txtAddress.setEditable(false);
             }
         });
+
+//        btn_Search.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String search = txt_Search.getText().trim();
+//                if (GlobalFlag == 1) {
+//                    loadDataAdmins(1, search);
+//                }
+//                else if (GlobalFlag == 2) {
+//                    loadDataCustomers(1, search);
+//                }
+//                else {
+//                    loadDataShippers(1, search);
+//                }
+//            }
+//        });
     }
 }

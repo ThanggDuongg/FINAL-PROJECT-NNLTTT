@@ -334,4 +334,45 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
             return status;
         }
     }
+
+    public static List<AdministratorDTO> getAll_Search(String search) {
+        ArrayList<AdministratorDTO> administratorDTOArrayList = new ArrayList<AdministratorDTO>();
+        try {
+            //insert query
+            String query = "SELECT * FROM persons WHERE Role = 1 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer ID = resultSet.getInt(1);
+                String firstname = resultSet.getString(2);
+                String lastname = resultSet.getString(3);
+                String phone = resultSet.getString(4);
+                String gender = resultSet.getString(5);
+                int age = resultSet.getInt(6);
+                String email = resultSet.getString(10);
+                String password = resultSet.getString(11);
+
+                AdministratorDTO administratorDTO = new AdministratorDTO(ID, firstname, lastname, phone, gender, age, email, password);
+                administratorDTOArrayList.add(administratorDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return administratorDTOArrayList;
+        }
+    }
 }

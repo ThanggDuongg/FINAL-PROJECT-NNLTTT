@@ -15,6 +15,10 @@ public class ShipperBUS {
     private ShipperDAO shipperDAO = new ShipperDAO();
     private StatusOfShipperDAO statusOfShipperDAO = new StatusOfShipperDAO();
 
+    public static List<ShipperDTO> getAll_Search(String search) {
+        return ShipperDAO.getAll_Search(search);
+    }
+
     public int insertAccount(String firstname, String lastname, String phone, String gender, int age, String email, String password, double salary){
         if (checkNullFieldsAccount(firstname, lastname, phone, gender, age, email, password) && salary != 0) {
             ShipperDTO shipperDTO = new ShipperDTO(firstname, lastname, phone, gender, age, email, password, salary);
