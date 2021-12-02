@@ -34,7 +34,10 @@ public class AdminAssignmentManagementGUI extends JFrame{
         DefaultComboBoxModel comboBoxModel = (DefaultComboBoxModel) cb_IdShipper.getModel();
         cb_IdShipper.removeAllItems();
         for (StatusOfShipperDTO statusOfShipperDTO:StatusOfShipperBUS.getAllNotStatus()) {
-            comboBoxModel.addElement(statusOfShipperDTO.getIdShipper());
+            ShipperDTO shipperDTO = shipperBUS.findById(statusOfShipperDTO.getIdShipper());
+            if (shipperDTO.isStatus()) {
+                cb_IdShipper.addItem(shipperDTO.getID());
+            }
         }
         cb_IdShipper.setModel(comboBoxModel);
     }

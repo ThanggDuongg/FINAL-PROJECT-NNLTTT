@@ -94,7 +94,7 @@ public class LoginGUI extends JFrame{
                         dispose();
                     }
                     else {
-                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password\nOr Your account has been locked");
                     }
                 }
                 else if(radioBtn_Shipper.isSelected()) {
@@ -103,7 +103,7 @@ public class LoginGUI extends JFrame{
                         dispose();
                     }
                     else {
-                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password\nOr Your account has been locked");
                     }
                 }
                 else if(radioBtn_Admin.isSelected()) {
@@ -112,7 +112,7 @@ public class LoginGUI extends JFrame{
                         dispose();
                     }
                     else {
-                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password\nOr Your account has been locked");
                     }
                 }
                 else {

@@ -19,7 +19,7 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         ArrayList<ShipperDTO> shipperDTOArrayList = new ArrayList<ShipperDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 3";
+            String query = "SELECT * FROM persons WHERE Role = 3 AND Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -157,9 +157,11 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
                 Double salary = resultSet.getDouble(9);
                 String email = resultSet.getString(10);
                 String password = resultSet.getString(11);
+                int st = resultSet.getInt(13);
+                boolean status = st == 1 ? true : false;
 
                 // print the results
-                shipperDTO = new ShipperDTO(Id, firstname, lastname, phone, gender, age, email, password, salary);
+                shipperDTO = new ShipperDTO(Id, firstname, lastname, phone, gender, age, email, password,status, salary);
             }
 
             MySQL.getConnection().close();
@@ -183,7 +185,7 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         boolean flag = true;
         try {
             //insert query
-            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 3";
+            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 3 and Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -240,9 +242,11 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
                 int age = resultSet.getInt(6);
                 Double salary = resultSet.getDouble(9);
                 String password = resultSet.getString(11);
+                int st = resultSet.getInt(13);
+                boolean status = st == 1 ? true : false;
 
                 // print the results
-                shipperDTO = new ShipperDTO(Id, firstname, lastname, phone, gender, age, email, password, salary);
+                shipperDTO = new ShipperDTO(Id, firstname, lastname, phone, gender, age, email, password,status, salary);
             }
 
             MySQL.getConnection().close();
@@ -260,7 +264,7 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         boolean status = false;
         try {
             //insert query
-            String query = "DELETE FROM persons where Email = ?";
+            String query = "update persons set Status = 0 where Email = ?";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -325,7 +329,7 @@ public class ShipperDAO implements GenericDAO<ShipperDTO> {
         ArrayList<ShipperDTO> shipperDTOArrayList = new ArrayList<ShipperDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 3 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+            String query = "SELECT * FROM persons WHERE Role = 3 AND Status = 1 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
 
 
             //create the mysql insert preparedstatement

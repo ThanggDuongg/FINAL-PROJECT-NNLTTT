@@ -3,8 +3,14 @@ package BUS;
 import DAO.ReviewDAO;
 import DTO.ReviewDTO;
 
+import java.util.List;
+
 public class ReviewBUS {
     private ReviewDAO reviewDAO = new ReviewDAO();
+
+    public List<ReviewDTO> getAll() {
+        return reviewDAO.getAll();
+    }
 
     public static ReviewDTO getByCustomerAndOrder(Integer IdOrder, Integer IdCustomer) {
         return ReviewDAO.getByCustomerAndOrder(IdOrder, IdCustomer);

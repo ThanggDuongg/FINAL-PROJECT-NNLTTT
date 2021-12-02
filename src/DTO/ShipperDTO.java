@@ -5,6 +5,7 @@ import DTO.AbstractDTO.AbstractPerson;
 public class ShipperDTO extends AbstractPerson {
     //fields
     private static final float heSo = 5.1F;
+    private boolean Status;
     private double Salary;
     enum Bac{
         Bac0(0),
@@ -23,6 +24,14 @@ public class ShipperDTO extends AbstractPerson {
     }
 
     //constructor
+
+
+    public ShipperDTO(Integer ID, String firstname, String lastname, String phone, String gender, int age, String email, String password, boolean status, double salary) {
+        super(ID, firstname, lastname, phone, gender, age, email, password);
+        Status = status;
+        Salary = salary;
+    }
+
     public ShipperDTO() {
     }
 
@@ -42,6 +51,16 @@ public class ShipperDTO extends AbstractPerson {
     }
 
     //getter & setter
+
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean status) {
+        Status = status;
+    }
+
     public double getSalary() {
         return Salary;
     }

@@ -16,7 +16,7 @@ public class FoodDAO implements GenericDAO<FoodDTO> {
         ArrayList<FoodDTO> foodDTOArrayList = new ArrayList<FoodDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM foods";
+            String query = "SELECT * FROM foods where Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -156,7 +156,7 @@ public class FoodDAO implements GenericDAO<FoodDTO> {
         boolean status = false;
         try {
             //insert query
-            String query = "DELETE FROM foods where Id = ?";
+            String query = "update foods set Status = 0 where Id = ?";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
