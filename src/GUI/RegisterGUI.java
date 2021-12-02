@@ -3,8 +3,11 @@ package GUI;
 import BUS.CustomerBUS;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Locale;
 
 public class RegisterGUI extends JFrame{
@@ -19,14 +22,16 @@ public class RegisterGUI extends JFrame{
     private JSpinner sp_Age;
     private JTextField txt_Password;
     private JTextField txt_Retypepasswd;
-    private JLabel link_login;
+    private JLabel Link_Login;
 
     public RegisterGUI() {
         setContentPane(mainPanel);
         setTitle("Register Form");
         setSize(700, 650);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
+        Link_Login.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_Register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,6 +51,27 @@ public class RegisterGUI extends JFrame{
                 else {
                     //
                 }
+            }
+        });
+        Link_Login.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    LoginGUI loginGUI = new LoginGUI();
+                    dispose();
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Link_Login.setForeground(Color.BLUE.brighter());
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Link_Login.setForeground(new Color(76, 79, 81));
             }
         });
     }

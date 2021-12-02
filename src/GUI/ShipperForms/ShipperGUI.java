@@ -3,6 +3,7 @@ package GUI.ShipperForms;
 import BUS.*;
 import BUS.ShipperBUS;
 import DTO.*;
+import GUI.LoginGUI;
 import Globals.Globals;
 
 import javax.swing.*;
@@ -43,6 +44,7 @@ public class ShipperGUI extends JFrame{
     private JTextField txt_DistanceCustomer;
     private JButton btn_Cancel;
     private JButton bnt_Delivered;
+    private JButton logout_BT;
 
     public void loadOrderWithStatusFalse() {
         DefaultTableModel model = (DefaultTableModel) table_Orders.getModel();
@@ -71,8 +73,8 @@ public class ShipperGUI extends JFrame{
         createTable();
         setContentPane(mainPanel);
         setTitle("Shipper Form");
-        setSize(700, 650);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(765, 400));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
         btn_Update.addActionListener(new ActionListener() {
@@ -163,6 +165,18 @@ public class ShipperGUI extends JFrame{
                 orderDTO.setIdShipper(null);
                 orderBUS.updateShipperForOrder(orderDTO);
                 loadOrderWithStatusFalse();
+            }
+        });
+        logout_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    LoginGUI loginGUI = new LoginGUI();
+                    dispose();
+                }
+                catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         });
     }

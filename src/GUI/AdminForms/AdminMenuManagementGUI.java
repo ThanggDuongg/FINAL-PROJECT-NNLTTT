@@ -53,6 +53,7 @@ public class AdminMenuManagementGUI extends JFrame{
     private JButton btn_InsertBeverageToMenu;
     private JButton btn_ResetFoods;
     private JButton btn_ResetBeverage;
+    private JButton return_BT;
 
     public void loadMenuByDaysInWeek(int daysinweek) {
         DefaultTableModel model = (DefaultTableModel) table_Menu.getModel();
@@ -169,7 +170,8 @@ public class AdminMenuManagementGUI extends JFrame{
         createTable();
         setContentPane(mainPanel);
         setTitle("Manage Menu Form");
-        setSize(700, 650);
+        setMinimumSize(new Dimension(1300, 430));
+        setMaximumSize(new Dimension(1300, 430));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -426,5 +428,21 @@ public class AdminMenuManagementGUI extends JFrame{
                 loadMenuByDaysInWeek(daysinweek);
             }
         });
+        return_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    AdminGUI adminGUI = new AdminGUI();
+                    dispose();
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        AdminMenuManagementGUI adminMenuManagementGUI = new AdminMenuManagementGUI();
     }
 }

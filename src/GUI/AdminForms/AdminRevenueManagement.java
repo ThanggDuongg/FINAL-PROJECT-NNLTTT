@@ -7,6 +7,21 @@ import BUS.ShipperBUS;
 import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.OrderDTO;
+import DTO.ShipperDTO;
+import GUI.LoginGUI;
+import Globals.Globals;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,30 +31,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
-import DTO.ShipperDTO;
-import Globals.Globals;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 //import org.apache.poi.ss.usermodel.Cell;
 //import org.apache.poi.ss.usermodel.CellType;
 //import org.apache.poi.xssf.usermodel.XSSFRow;
 //import org.apache.poi.xssf.usermodel.XSSFSheet;
 //import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 public class AdminRevenueManagement extends JFrame{
     private AdministratorBUS administratorBUS = new AdministratorBUS();
@@ -51,6 +53,7 @@ public class AdminRevenueManagement extends JFrame{
     private JButton btn_ExportPDF;
     private JComboBox cb_Sort;
     private JPanel pnl_Chart;
+    private JButton return_BT;
 
     private void loadHistoryOrder_Delivered(int index) {
         DefaultTableModel model = (DefaultTableModel) table_HistoryOrders_Deliverd.getModel();
@@ -113,7 +116,8 @@ public class AdminRevenueManagement extends JFrame{
         createTable();
         setContentPane(mainPanel);
         setTitle("Manage Revenue Form");
-        setSize(700, 650);
+        setMinimumSize(new Dimension(800, 430));
+        setMaximumSize(new Dimension(800, 430));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -295,5 +299,21 @@ public class AdminRevenueManagement extends JFrame{
                 }
             }
         });
+        return_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    AdminGUI adminGUI = new AdminGUI();
+                    dispose();
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        AdminRevenueManagement adminRevenueManagement = new AdminRevenueManagement();
     }
 }

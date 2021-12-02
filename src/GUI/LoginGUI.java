@@ -93,11 +93,17 @@ public class LoginGUI extends JFrame{
                         CustomerGUI customerGUI = new CustomerGUI();
                         dispose();
                     }
+                    else {
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
+                    }
                 }
                 else if(radioBtn_Shipper.isSelected()) {
                     if (ShipperBUS.checkLogin(email, password) == 1) {
                         ShipperGUI shipperGUI = new ShipperGUI();
                         dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
                     }
                 }
                 else if(radioBtn_Admin.isSelected()) {
@@ -105,6 +111,12 @@ public class LoginGUI extends JFrame{
                         AdminGUI adminGUI = new AdminGUI();
                         dispose();
                     }
+                    else {
+                        JOptionPane.showMessageDialog(mainPanel, "Wrong Username Or Password");
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(mainPanel, "Please Choose Your Role Account");
                 }
             }
         });
