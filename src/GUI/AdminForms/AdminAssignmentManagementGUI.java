@@ -8,6 +8,7 @@ import DTO.CustomerDTO;
 import DTO.OrderDTO;
 import DTO.ShipperDTO;
 import DTO.StatusOfShipperDTO;
+import GUI.LoginGUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ public class AdminAssignmentManagementGUI extends JFrame{
     private JTextField txt_FullnameShipepr;
     private JTextField txt_AllOrderInDay;
     private JButton btn_Assignment;
+    private JButton return_BT;
 
     private void loadDataCombobox() {
         DefaultComboBoxModel comboBoxModel = (DefaultComboBoxModel) cb_IdShipper.getModel();
@@ -64,7 +66,8 @@ public class AdminAssignmentManagementGUI extends JFrame{
         createTable();
         setContentPane(mainPanel);
         setTitle("Manage Assignment Form");
-        setSize(700, 650);
+        setMinimumSize(new Dimension(930, 490));
+        setMaximumSize(new Dimension(930, 490));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -104,5 +107,21 @@ public class AdminAssignmentManagementGUI extends JFrame{
                 }
             }
         });
+        return_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    AdminGUI adminGUI = new AdminGUI();
+                    dispose();
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        AdminAssignmentManagementGUI adminAssignmentManagementGUI = new AdminAssignmentManagementGUI();
     }
 }
