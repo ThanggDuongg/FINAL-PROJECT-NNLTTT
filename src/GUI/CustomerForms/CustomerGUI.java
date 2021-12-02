@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -69,14 +72,13 @@ public class CustomerGUI extends JFrame{
     public void loadAllReviewOrder() {
         DefaultTableModel model = (DefaultTableModel) table_AllReview.getModel();
         model.setRowCount(0);
-        for (OrderDTO item:OrderBUS.getAllOrderByIdCustomer()) {
-            Integer Id = item.getId();
-            Timestamp dateOrder = item.getDateOrder();
+        for (ReviewDTO item:reviewBUS.getAll()) {
+            Integer IdOrder = item.getIdOrder();
+            OrderDTO orderDTO = orderBUS.findById(IdOrder);
+            Timestamp dateOrder = orderDTO.getDateOrder();
             Integer IdCustomer = item.getIdCustomer();
-            ReviewDTO reviewDTO = ReviewBUS.getByCustomerAndOrder(Id, IdCustomer);
-
-            int rating = reviewDTO.getRating();
-            Object[] data = {Id, dateOrder, rating};
+            int rating = item.getRating();
+            Object[] data = {IdOrder, dateOrder, rating};
             model.addRow(data);
         }
     }
@@ -221,8 +223,14 @@ public class CustomerGUI extends JFrame{
         sp_Rating.setModel(spinnerNumberModel);
     }
 
+    private void setTextArea() {
+        text_ReviewReview.setMaximumSize(new Dimension(120, 200));
+        text_ReviewReview.setMinimumSize(new Dimension(120, 200));
+    }
+
     public CustomerGUI() {
         createTable();
+        setTextArea();
         createLimitSpinner();
         setContentPane(mainPanel);
         setTitle("Customer Form");
@@ -304,7 +312,7 @@ public class CustomerGUI extends JFrame{
                            }
                            else {
                                if (beverageDTO.getAcoholeByVolume() > 0) {
-                                   //Message box ko đủ tuổi mua đồ uống có cồn
+                                   JOptionPane.showMessageDialog(mainPanel, "You aren't old enough to buy acohol drink");
                                }
                                else {
                                    int quantity = MenuBeverageBUS.getByDaysAndId(productId, day).getQuantity() - 1;

@@ -18,7 +18,7 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
         ArrayList<CustomerDTO> customerDTOArrayList = new ArrayList<CustomerDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 2";
+            String query = "SELECT * FROM persons WHERE Role = 2 AND Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -221,7 +221,7 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
         boolean flag = true;
         try {
             //insert query
-            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 2";
+            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 2 and Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -299,7 +299,7 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
         boolean status = false;
         try {
             //insert query
-            String query = "DELETE FROM persons where Email = ?";
+            String query = "update persons set Status = 0 where Email = ?";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -326,7 +326,7 @@ public class CustomerDAO implements GenericDAO<CustomerDTO> {
         ArrayList<CustomerDTO> customerDTOArrayList = new ArrayList<CustomerDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 2 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+            String query = "SELECT * FROM persons WHERE Role = 2 AND Status = 1 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
 
 
             //create the mysql insert preparedstatement

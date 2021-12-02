@@ -18,7 +18,7 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
         ArrayList<AdministratorDTO> administratorDTOArrayList = new ArrayList<AdministratorDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 1";
+            String query = "SELECT * FROM persons WHERE Role = 1 AND Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -173,7 +173,7 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
         boolean status = false;
         try {
             //insert query
-            String query = "DELETE FROM persons where Id = ?";
+            String query = "update persons set Status = 0  where Id = ?";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -236,7 +236,7 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
         boolean flag = true;
         try {
             //insert query
-            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 1";
+            String query = "SELECT count(*) FROM persons Where Email = ? and Password = ? and Role = 1 and Status = 1";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -312,7 +312,7 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
         boolean status = false;
         try {
             //insert query
-            String query = "DELETE FROM persons where Email = ?";
+            String query = "update persons set Status = 0 where Email = ?";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
@@ -339,7 +339,7 @@ public class AdministratorDAO implements GenericDAO<AdministratorDTO> {
         ArrayList<AdministratorDTO> administratorDTOArrayList = new ArrayList<AdministratorDTO>();
         try {
             //insert query
-            String query = "SELECT * FROM persons WHERE Role = 1 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
+            String query = "SELECT * FROM persons WHERE Role = 1 AND Status = 1 AND CONCAT(Id, Firstname, Lastname, Phone, Email) LIKE '%" + search + "%'";
 
             //create the mysql insert preparedstatement
             PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);

@@ -82,4 +82,8 @@ public class OrderBUS {
     public static List<OrderDTO> getAllOrderByIdCustomer() {
         return OrderDAO.getAllByIdCustomerHistory(Globals.getGlobalCustomerId());
     }
+
+    public static List<OrderDTO> getAllByIdShipperHistory() {
+        return OrderDAO.getAllByIdShipperHistory(Globals.getGlobalShipperId());
+    }
 }

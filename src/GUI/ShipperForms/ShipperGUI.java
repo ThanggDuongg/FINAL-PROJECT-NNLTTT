@@ -7,6 +7,8 @@ import GUI.LoginGUI;
 import Globals.Globals;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -45,6 +47,30 @@ public class ShipperGUI extends JFrame{
     private JButton btn_Cancel;
     private JButton bnt_Delivered;
     private JButton logout_BT;
+    private JTable table_OrderHistory;
+    private JTextArea text_ReviewHistory;
+    private JTextField txt_DateOderHistory;
+    private JSpinner sp_RatingHistory;
+    private JTextField txt_CustomerHistory;
+    private JTextField txt_TotalHistory;
+
+    public void loadOrderHistory(){
+        DefaultTableModel model = (DefaultTableModel) table_OrderHistory.getModel();
+        model.setRowCount(0);
+        for (OrderDTO item: OrderBUS.getAllByIdShipperHistory()) {
+            Integer Id = item.getId();
+            Timestamp dateOrder = item.getDateOrder();
+            int quantity = item.getQuantity();
+
+            //boolean status = item.isStatus();
+            CustomerDTO customerDTO = this.customerBUS.findById(item.getIdCustomer());
+            //String nameCustomer = customerDTO.getFirstname() + " " + customerDTO.getLastname();
+            double distance = customerDTO.getDistance();
+            float total = item.getTotal();
+            Object[] data = {Id, dateOrder, quantity, total, item.getIdCustomer(), distance};
+            model.addRow(data);
+        }
+    }
 
     public void loadOrderWithStatusFalse() {
         DefaultTableModel model = (DefaultTableModel) table_Orders.getModel();
@@ -67,6 +93,9 @@ public class ShipperGUI extends JFrame{
     public void createTable() {
         table_Orders.getTableHeader().setFont(new Font("Arial", 2, 14));
         table_Orders.setModel(new DefaultTableModel(null, new String[]{"Id", "Date Order", "Quantity", "Total Price", "Id Customer", "Distance"}));
+
+        table_OrderHistory.getTableHeader().setFont(new Font("Arial", 2, 14));
+        table_OrderHistory.setModel(new DefaultTableModel(null, new String[]{"Id", "Date Order", "Quantity", "Total Price", "Id Customer", "Distance"}));
     }
 
     public ShipperGUI() {
@@ -112,7 +141,7 @@ public class ShipperGUI extends JFrame{
                 txt_Salary.setText(String.valueOf(shipperDTO.tinhLuong()).trim());
                 txt_Password.setText(shipperDTO.getPassword().trim());
 
-                loadOrderWithStatusFalse();
+                //loadOrderWithStatusFalse();
             }
         });
         table_Orders.addMouseListener(new MouseAdapter() {
@@ -128,7 +157,7 @@ public class ShipperGUI extends JFrame{
                 String fullnameCustomer = customerDTO.getFirstname() + " " + customerDTO.getLastname();
                 txt_FullnameCustomer.setText(fullnameCustomer);
                 txt_AddressCustomer.setText(customerDTO.getAddress());
-                txt_Phone.setText(customerDTO.getPhone());
+                txt_PhoneCustomer.setText(customerDTO.getPhone());
                 txt_DistanceCustomer.setText(String.valueOf(customerDTO.getDistance()));
 
                 float realCost = orderBUS.realCost(IdOrder);
@@ -176,6 +205,45 @@ public class ShipperGUI extends JFrame{
                 }
                 catch (Exception ex) {
                     System.out.println(ex.getMessage());
+                }
+            }
+        });
+        tabShipper.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (tabShipper.getSelectedIndex() == 1) {
+                    loadOrderWithStatusFalse();
+                }
+                else if (tabShipper.getSelectedIndex() == 2) {
+                    loadOrderHistory();
+                }
+            }
+        });
+        table_OrderHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index = table_OrderHistory.getSelectedRow();
+                index = index == -1 ? 0 : index;
+                TableModel tableModel = table_OrderHistory.getModel();
+
+                Integer orderId = Integer.parseInt(tableModel.getValueAt(index, 0).toString().trim());
+                OrderDTO orderDTO = orderBUS.findById(orderId);
+                txt_DateOderHistory.setText(orderDTO.getDateOrder().toString().trim());
+
+                CustomerDTO customerDTO = customerBUS.findById(orderDTO.getIdCustomer());
+                String fullnameCustomer = customerDTO.getFirstname() + " " + customerDTO.getLastname();
+                txt_CustomerHistory.setText(fullnameCustomer);
+
+                txt_TotalHistory.setText(String.valueOf(orderDTO.getTotal()));
+
+                ReviewDTO reviewDTO = ReviewBUS.getByCustomerAndOrder(orderId, orderDTO.getIdCustomer());
+                if (reviewDTO.getId() != null) {
+                    text_ReviewHistory.setText(reviewDTO.getComment().trim());
+                    sp_RatingHistory.setValue(reviewDTO.getRating());
+                }
+                else {
+                    text_ReviewHistory.setText("No information");
+                    sp_RatingHistory.setValue(1);
                 }
             }
         });

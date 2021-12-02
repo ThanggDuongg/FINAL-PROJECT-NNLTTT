@@ -387,4 +387,45 @@ public class OrderDAO implements GenericDAO<OrderDTO> {
             return orderDTOArrayList;
         }
     }
+
+    public static List<OrderDTO> getAllByIdShipperHistory(Integer IdShipper) {
+        ArrayList<OrderDTO> orderDTOArrayList = new ArrayList<>();
+        try {
+            //insert query
+            String query = "SELECT * FROM orders where IdShipper = " + IdShipper;
+
+            //create the mysql insert preparedstatement
+            PreparedStatement preparedStmt = MySQL.getConnection().prepareStatement(query);
+            //preparedStmt.setInt(1, IdCustomer);
+
+            System.out.println(preparedStmt);
+            //execute the preparedstatement
+            // execute the query, and get a java resultset
+            ResultSet resultSet = preparedStmt.executeQuery(query);
+
+            // iterate through the java resultset
+            while (resultSet.next())
+            {
+                Integer Id = resultSet.getInt(1);
+                Timestamp dateOrder = resultSet.getTimestamp(2);
+                int quantity = resultSet.getInt(3);
+                float total = resultSet.getFloat(4);
+                int status = resultSet.getInt(6);
+                Integer IdCustomer = resultSet.getInt(5);
+                boolean st = status == 1 ? true : false;
+
+                OrderDTO orderDTO = new OrderDTO(Id, dateOrder, quantity, total, IdCustomer, st);
+                orderDTOArrayList.add(orderDTO);
+            }
+
+            MySQL.getConnection().close();
+        }
+        catch (Exception ex) {
+            System.err.println("Got an exception!");
+            System.err.println(ex.getMessage());
+        }
+        finally {
+            return orderDTOArrayList;
+        }
+    }
 }
