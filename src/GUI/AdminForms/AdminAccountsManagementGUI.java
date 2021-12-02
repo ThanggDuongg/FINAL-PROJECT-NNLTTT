@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AdminAccountsManagementGUI extends JFrame{
@@ -363,72 +364,77 @@ public class AdminAccountsManagementGUI extends JFrame{
         btn_Delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = txt_Email.getText().trim();
-                int indexRole = cb_Role.getSelectedIndex();
-                if (indexRole == 1) {
-                    // form check sure to delete =>
-                    if (CustomerBUS.deleteByEmail(email) == 1) {
-                        //sc
-                        loadDataCustomers(0, "");
-                        String temp = "";
-                        txt_Email.setText(temp);
-                        txt_Password.setText(temp);
-                        txt_Firstname.setText(temp);
-                        txt_Lastname.setText(temp);
-                        txt_Phone.setText(temp);
-                        txtAddress.setText(temp);
-                        txt_Distance.setText(temp);
-                        txt_Salary.setText(temp);
-                        cb_Gender.setSelectedIndex(0);
-                        sp_Age.setValue(0);
-                        cb_Role.setSelectedIndex(0);
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Delete This?","Warning",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    // Saving code here
+                    String email = txt_Email.getText().trim();
+                    int indexRole = cb_Role.getSelectedIndex();
+                    if (indexRole == 1) {
+                        // form check sure to delete =>
+                        if (CustomerBUS.deleteByEmail(email) == 1) {
+                            //sc
+                            loadDataCustomers(0, "");
+                            String temp = "";
+                            txt_Email.setText(temp);
+                            txt_Password.setText(temp);
+                            txt_Firstname.setText(temp);
+                            txt_Lastname.setText(temp);
+                            txt_Phone.setText(temp);
+                            txtAddress.setText(temp);
+                            txt_Distance.setText(temp);
+                            txt_Salary.setText(temp);
+                            cb_Gender.setSelectedIndex(0);
+                            sp_Age.setValue(0);
+                            cb_Role.setSelectedIndex(0);
+                        }
+                        else {
+                            //unsc
+                        }
+                    }
+                    else if (indexRole == 2) {
+                        if (ShipperBUS.deleteByEmail(email) == 1) {
+                            //sc
+                            loadDataShippers(0, "");
+                            String temp = "";
+                            txt_Email.setText(temp);
+                            txt_Password.setText(temp);
+                            txt_Firstname.setText(temp);
+                            txt_Lastname.setText(temp);
+                            txt_Phone.setText(temp);
+                            txtAddress.setText(temp);
+                            txt_Distance.setText(temp);
+                            txt_Salary.setText(temp);
+                            cb_Gender.setSelectedIndex(0);
+                            sp_Age.setValue(0);
+                            cb_Role.setSelectedIndex(0);
+                        }
+                        else {
+                            //unsc
+                        }
                     }
                     else {
-                        //unsc
+                        if (AdministratorBUS.deleteByEmail(email) == 1) {
+                            //sc
+                            loadDataAdmins(0, "");
+                            String temp = "";
+                            txt_Email.setText(temp);
+                            txt_Password.setText(temp);
+                            txt_Firstname.setText(temp);
+                            txt_Lastname.setText(temp);
+                            txt_Phone.setText(temp);
+                            txtAddress.setText(temp);
+                            txt_Distance.setText(temp);
+                            txt_Salary.setText(temp);
+                            cb_Gender.setSelectedIndex(0);
+                            sp_Age.setValue(0);
+                            cb_Role.setSelectedIndex(0);
+                        }
+                        else {
+                            //unsc
+                        }
                     }
                 }
-                else if (indexRole == 2) {
-                    if (ShipperBUS.deleteByEmail(email) == 1) {
-                        //sc
-                        loadDataShippers(0, "");
-                        String temp = "";
-                        txt_Email.setText(temp);
-                        txt_Password.setText(temp);
-                        txt_Firstname.setText(temp);
-                        txt_Lastname.setText(temp);
-                        txt_Phone.setText(temp);
-                        txtAddress.setText(temp);
-                        txt_Distance.setText(temp);
-                        txt_Salary.setText(temp);
-                        cb_Gender.setSelectedIndex(0);
-                        sp_Age.setValue(0);
-                        cb_Role.setSelectedIndex(0);
-                    }
-                    else {
-                        //unsc
-                    }
-                }
-                else {
-                    if (AdministratorBUS.deleteByEmail(email) == 1) {
-                        //sc
-                        loadDataAdmins(0, "");
-                        String temp = "";
-                        txt_Email.setText(temp);
-                        txt_Password.setText(temp);
-                        txt_Firstname.setText(temp);
-                        txt_Lastname.setText(temp);
-                        txt_Phone.setText(temp);
-                        txtAddress.setText(temp);
-                        txt_Distance.setText(temp);
-                        txt_Salary.setText(temp);
-                        cb_Gender.setSelectedIndex(0);
-                        sp_Age.setValue(0);
-                        cb_Role.setSelectedIndex(0);
-                    }
-                    else {
-                        //unsc
-                    }
-                }
+
             }
         });
         btn_Update.addActionListener(new ActionListener() {
@@ -482,48 +488,52 @@ public class AdminAccountsManagementGUI extends JFrame{
         btn_Insert.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int indexRole = cb_Role.getSelectedIndex() + 1;
-                String email = txt_Email.getText().trim();
-                String firstname = txt_Firstname.getText().trim();
-                String lastname = txt_Lastname.getText().trim();
-                String phone = txt_Phone.getText().trim();
-                String gender = cb_Gender.getSelectedItem().toString().trim();
-                int age = Integer.parseInt(sp_Age.getValue().toString());
-                String password = txt_Password.getText().trim();
-                if (indexRole == 2) { //Customer
-                    String address = txtAddress.getText().trim();
-                    CustomerBUS customerBUS = new CustomerBUS();
-                    Integer Id = CustomerBUS.findByEmail(email).getID();
-                    if (customerBUS.insertAccount(firstname, lastname, phone, gender, age, address, email, password) == 1) {
-                        //sc
-                        loadDataCustomers(0, "");
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Insert This?","Warning",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    int indexRole = cb_Role.getSelectedIndex() + 1;
+                    String email = txt_Email.getText().trim();
+                    String firstname = txt_Firstname.getText().trim();
+                    String lastname = txt_Lastname.getText().trim();
+                    String phone = txt_Phone.getText().trim();
+                    String gender = cb_Gender.getSelectedItem().toString().trim();
+                    int age = Integer.parseInt(sp_Age.getValue().toString());
+                    String password = txt_Password.getText().trim();
+                    if (indexRole == 2) { //Customer
+                        String address = txtAddress.getText().trim();
+                        CustomerBUS customerBUS = new CustomerBUS();
+                        Integer Id = CustomerBUS.findByEmail(email).getID();
+                        if (customerBUS.insertAccount(firstname, lastname, phone, gender, age, address, email, password) == 1) {
+                            //sc
+                            loadDataCustomers(0, "");
+                        }
+                        else {
+                            //usc
+                        }
+                    }
+                    else if (indexRole == 3) {
+                        double salary = Double.parseDouble(txt_Salary.getText().trim());
+                        ShipperBUS shipperBUS = new ShipperBUS();
+                        Integer Id = ShipperBUS.findByEmail(email).getID();
+                        if (shipperBUS.insertAccount(firstname, lastname, phone, gender, age, email, password, salary) == 1) {
+                            //sc
+                            loadDataShippers(0, "");
+                        }
+                        else {
+                            //unsc
+                        }
                     }
                     else {
-                        //usc
+                        Integer Id = AdministratorBUS.findByEmail(email).getID();
+                        if (administratorBUS.insertAccount(firstname, lastname, phone, gender, age, email, password) == 1) {
+                            //sc
+                            loadDataAdmins(0, "");
+                        }
+                        else {
+                            //unsc
+                        }
                     }
                 }
-                else if (indexRole == 3) {
-                    double salary = Double.parseDouble(txt_Salary.getText().trim());
-                    ShipperBUS shipperBUS = new ShipperBUS();
-                    Integer Id = ShipperBUS.findByEmail(email).getID();
-                    if (shipperBUS.insertAccount(firstname, lastname, phone, gender, age, email, password, salary) == 1) {
-                        //sc
-                        loadDataShippers(0, "");
-                    }
-                    else {
-                        //unsc
-                    }
-                }
-                else {
-                    Integer Id = AdministratorBUS.findByEmail(email).getID();
-                    if (administratorBUS.insertAccount(firstname, lastname, phone, gender, age, email, password) == 1) {
-                        //sc
-                        loadDataAdmins(0, "");
-                    }
-                    else {
-                        //unsc
-                    }
-                }
+
             }
         });
         tabbedPane2.addMouseListener(new MouseAdapter() {

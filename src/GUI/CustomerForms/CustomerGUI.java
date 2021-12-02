@@ -6,6 +6,7 @@ import BUS.MenuFoodBUS;
 import BUS.MenuBeverageBUS;
 import BUS.CustomerBUS;
 import DTO.*;
+import GUI.LoginGUI;
 import Globals.*;
 
 import javax.swing.*;
@@ -63,6 +64,7 @@ public class CustomerGUI extends JFrame{
     private JTextField txt_ShipperReview;
     private JSpinner sp_RatingReview;
     private JTextArea text_ReviewReview;
+    private JButton logout_BT;
 
     public void loadAllReviewOrder() {
         DefaultTableModel model = (DefaultTableModel) table_AllReview.getModel();
@@ -224,8 +226,9 @@ public class CustomerGUI extends JFrame{
         createLimitSpinner();
         setContentPane(mainPanel);
         setTitle("Customer Form");
-        setSize(700, 650);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(765, 430));
+        setMaximumSize(new Dimension(765, 430));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
         btn_Update.addActionListener(new ActionListener() {
@@ -479,6 +482,18 @@ public class CustomerGUI extends JFrame{
                         sp_RatingReview.setValue(reviewDTO.getRating());
                         text_ReviewReview.setText(reviewDTO.getComment().trim());
                     }
+                }
+            }
+        });
+        logout_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    LoginGUI loginGUI = new LoginGUI();
+                    dispose();
+                }
+                catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 }
             }
         });
