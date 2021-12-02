@@ -9,6 +9,7 @@ import DAO.ShipperDAO;
 import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.ShipperDTO;
+import GUI.LoginGUI;
 import Globals.Globals;
 
 import javax.swing.*;
@@ -59,6 +60,7 @@ public class AdminAccountsManagementGUI extends JFrame{
     private JTable table_Admins;
     private JButton btn_Search;
     private JTextField txt_Search;
+    private JButton return_BT;
 
     private void loadDataSearch(int flag, String search) {
         if (GlobalFlag == 1) {
@@ -152,7 +154,8 @@ public class AdminAccountsManagementGUI extends JFrame{
         createTable();
         setContentPane(mainPanel);
         setTitle("Manage Account Form");
-        setSize(700, 650);
+        setMinimumSize(new Dimension(1000, 580));
+        setMaximumSize(new Dimension(1000, 580));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -571,5 +574,21 @@ public class AdminAccountsManagementGUI extends JFrame{
 //                }
 //            }
 //        });
+        return_BT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    AdminGUI adminGUI = new AdminGUI();
+                    dispose();
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        AdminAccountsManagementGUI accountsManagementGUI = new AdminAccountsManagementGUI();
     }
 }
