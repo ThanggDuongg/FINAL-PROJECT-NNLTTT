@@ -6,17 +6,22 @@ import BUS.MenuFoodBUS;
 import BUS.MenuBeverageBUS;
 import BUS.CustomerBUS;
 import DTO.*;
+import GUI.ChatPanelGUI;
 import GUI.LoginGUI;
 import Globals.*;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -68,6 +73,16 @@ public class CustomerGUI extends JFrame{
     private JSpinner sp_RatingReview;
     private JTextArea text_ReviewReview;
     private JButton logout_BT;
+    private JPanel jPanel_chat;
+    private JTextField txt_NameChat;
+    private JTextField txt_IpChat;
+    private JTextField txt_PortChat;
+    private JButton btn_ConnectChat;
+
+    Socket Socket = null;
+    BufferedReader bufferedReader = null;
+    DataOutputStream dataOutputStream = null;
+
 
     public void loadAllReviewOrder() {
         DefaultTableModel model = (DefaultTableModel) table_AllReview.getModel();
@@ -271,13 +286,25 @@ public class CustomerGUI extends JFrame{
                 txt_Distance.setText(String.valueOf(customerDTO.getDistance()).trim());
                 sp_Age.setValue(customerDTO.getAge());
                 txt_Password.setText(customerDTO.getPassword().trim());
-
-                loadMenuByDaysInWeek(day);
-                loadTotal();
-                loadHistoryOrder();
-                loadAllReviewOrder();
             }
         });
+
+        tabbedPane1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (tabbedPane1.getSelectedIndex() == 1) {
+                    loadMenuByDaysInWeek(day);
+                }
+                else if (tabbedPane1.getSelectedIndex() == 2) {
+                    loadTotal();
+                    loadHistoryOrder();
+                }
+                else if (tabbedPane1.getSelectedIndex() == 3) {
+                    loadAllReviewOrder();
+                }
+            }
+        });
+
         btn_singleRight.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -502,6 +529,47 @@ public class CustomerGUI extends JFrame{
                 }
                 catch (Exception ex) {
                     System.out.println(ex.getMessage());
+                }
+            }
+        });
+        btn_ConnectChat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //Lấy dữ liệu bao gồm name,ip,port
+                    String ip = txt_IpChat.getText().trim();
+                    int port = Integer.parseInt(txt_PortChat.getText().trim());
+                    String name = txt_NameChat.getText();
+
+                    //Tạo một socket bằng ip và port ở trên
+                    Socket = new Socket(ip, port);
+
+                    // Validation__________________________
+                    if (name.isEmpty()) throw new Exception("Empty Name");
+                    if (Socket == null) throw new Exception("Null Socket");
+
+                    //Tạo một ChatPanel
+                    jPanel_chat.removeAll();
+                    ChatPanelGUI chatPanelGUI = new ChatPanelGUI(Socket, name, "Manager");
+                    chatPanelGUI.setSize(100, 100);
+                    chatPanelGUI.setVisible(true);
+
+                    jPanel_chat.add(chatPanelGUI);
+                    jPanel_chat.updateUI();
+
+                    //Cho ChatPanel này "chạy" để kiểm tra tin nhắn đến và đi
+                    Thread t = new Thread(chatPanelGUI);
+                    t.start();
+
+                    //Thông báo chạy thành công
+                    JOptionPane.showMessageDialog(mainPanel, "Connect success", "Connected",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (Exception exception) {
+//                    JOptionPane.showMessageDialog(mainPanel,
+//                            "Error while connect, please check details try again!\nDetails: " + e,
+//                            "Error while connect", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(exception);
                 }
             }
         });
