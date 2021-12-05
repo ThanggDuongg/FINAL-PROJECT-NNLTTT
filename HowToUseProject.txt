@@ -1,0 +1,24 @@
+Xin chào thầy,
+File này để hướng dẫn sử dụng project
+Đầu tiên, để sử dụng project cần cài những thứ như sau:
+	JDK, JRE ở đây em sử dụng JDK 16
+	IDE: IntelIJ Ultimate 2021.2
+	Database: Hệ quản trị csdl Mysql
+	Các thư viện em đã để trong folder lib trong project.
+
+Sau khi cài đặt và cấu hình các thứ trên, ta cần import data từ file em đã
+để trong project file có đuôi .sql vào MySQL.
+Và không quên include các thư viện hỗ trợ (Em đã include vào project, có lẽ
+vẫn sẽ còn).
+Tiếp đến ta tiến hành chạy ứng dụng và tận hưởng:
+Các accounts tiêu biểu như sau:
+
+Administrator:
+	Tài khoản: Admin
+	Mật khẩu: 1234567
+Customer:
+	Tài khoản: ThanhTrung231@gmail.com
+	Mật khẩu: 1234567
+Shipper: 
+	Tài khoản: my12@gmail.com
+	Mật khẩu: 1234567

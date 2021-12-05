@@ -9,6 +9,7 @@ import DAO.ShipperDAO;
 import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.ShipperDTO;
+import GUI.ChatPanelGUI;
 import GUI.LoginGUI;
 import Globals.Globals;
 
@@ -21,10 +22,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AdminAccountsManagementGUI extends JFrame{
+public class AdminAccountsManagementGUI extends JFrame implements Runnable {
     private int GlobalFlag = 1;
     private CustomerBUS customerBUS = new CustomerBUS();
     private ShipperBUS shipperBUS = new ShipperBUS();
@@ -62,6 +67,14 @@ public class AdminAccountsManagementGUI extends JFrame{
     private JButton btn_Search;
     private JTextField txt_Search;
     private JButton return_BT;
+    private JTabbedPane tabbed_Chat;
+    private JButton btn_StartServer;
+    private JTextField txt_Port;
+
+    private ServerSocket Socket = null;
+    private BufferedReader bufferedReader = null;
+    private Thread thread;
+    AdminAccountsManagementGUI thisAdminAccountsManagementGUI;
 
     private void loadDataSearch(int flag, String search) {
         if (GlobalFlag == 1) {
@@ -152,6 +165,7 @@ public class AdminAccountsManagementGUI extends JFrame{
     }
 
     public AdminAccountsManagementGUI() {
+        thisAdminAccountsManagementGUI = this;
         createTable();
         setContentPane(mainPanel);
         setTitle("Manage Account Form");
@@ -596,9 +610,73 @@ public class AdminAccountsManagementGUI extends JFrame{
                 }
             }
         });
+        btn_StartServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int port = 10;
+                try {
+                    //Kiểm tra dữ liệu nhập vào
+                    port = Integer.parseInt(txt_Port.getText().trim());
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(mainPanel,
+                            "Can't start at this port, program will use the default port=8\nDetails: \n" + e,
+                            "Error while read Port", JOptionPane.ERROR_MESSAGE);
+                }
+
+                try {
+                    //Hiểu nôm na là chạy Server tại port này
+                    Socket = new ServerSocket(port);
+                    JOptionPane.showMessageDialog(mainPanel, "Server is running at port: " + port, "Started server",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(mainPanel, "Details: \n" +e, "Start server error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+                //Chạy Server (class ServerGUI hiên tại) để kiểm tra các luồng kết nối vào server sau này,
+                //ở đây biến "thisServerGUI" đã được mình gán ở đầu class
+                Thread t = new Thread(thisAdminAccountsManagementGUI);
+                t.start();
+            }
+        });
     }
 
     public static void main(String[] args) {
         AdminAccountsManagementGUI accountsManagementGUI = new AdminAccountsManagementGUI();
+    }
+
+    @Override
+    public void run() {
+        while (true)
+            try {
+                // Chấp nhận kết nối từ Client
+                Socket staffSocket = Socket.accept();
+                if (staffSocket != null) {
+                    // Lấy tên của nhân viên vừa nhắn tin cho Server
+                    // Có nhi�?u cách xử lý, đây là cách của mình
+                    bufferedReader = new BufferedReader(new InputStreamReader(staffSocket.getInputStream()));
+                    String staffName = bufferedReader.readLine();
+                    staffName = staffName.substring(0, staffName.indexOf(":"));
+
+                    // Tạo ChatPanel và show nó vào cái TabbedPane, khá là đơn giản
+                    ChatPanelGUI chatPanelGUI = new ChatPanelGUI(staffSocket, "Manager", staffName);
+                    chatPanelGUI.setSize(100, 100);
+                    chatPanelGUI.setVisible(true);
+                    tabbed_Chat.add(staffName, chatPanelGUI);
+                    chatPanelGUI.getRootPane().updateUI();
+                    // Chạy Thread ChatPanel để kiểm tra các tin nhắn đến và đi (�?ã giải thích ở
+                    // phần 1)
+                    Thread t = new Thread(chatPanelGUI);
+                    t.start();
+                }
+
+                // Không cần thiết cho lắm
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                // Do not change this because it spawn try-catch many time while running thread!
+            }
     }
 }
