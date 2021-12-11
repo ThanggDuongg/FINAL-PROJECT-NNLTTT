@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 27/11/2021 15:16:22
+ Date: 11/12/2021 07:44:31
 */
 
 SET NAMES utf8mb4;
@@ -28,31 +28,32 @@ CREATE TABLE `beverages`  (
   `Quantity` int NULL DEFAULT NULL,
   `Price` float NULL DEFAULT NULL,
   `AcoholeByVolume` float NULL DEFAULT NULL,
+  `Status` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`Id`) USING BTREE,
   UNIQUE INDEX `beverages_Name_uindex`(`Name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of beverages
 -- ----------------------------
-INSERT INTO `beverages` VALUES (1, '1', '1', 2, 1, 1);
-INSERT INTO `beverages` VALUES (2, '2', '2', 0, 2, 0);
-INSERT INTO `beverages` VALUES (3, 'a', 'a', 0, 2, 1);
-INSERT INTO `beverages` VALUES (4, 'Cocacola', 'coca', 90, 15000, 0);
-INSERT INTO `beverages` VALUES (5, 'Sprite', 'sprite', 15, 20000, 0);
-INSERT INTO `beverages` VALUES (6, 'Pepsi', 'pepsi', 20, 12000, 0);
-INSERT INTO `beverages` VALUES (7, 'Sting', 'sting', 55, 17000, 0);
-INSERT INTO `beverages` VALUES (8, 'Lavie', 'lavie', 22, 13000, 0);
-INSERT INTO `beverages` VALUES (9, 'Aquafina', 'aqua', 20, 9000, 0);
-INSERT INTO `beverages` VALUES (10, 'Bò húc', 'bohuc', 30, 30000, 0);
-INSERT INTO `beverages` VALUES (11, 'Hổ vằn', 'hovan', 25, 19000, 0);
-INSERT INTO `beverages` VALUES (12, 'Fanta', 'tanfa', 15, 25000, 0);
-INSERT INTO `beverages` VALUES (13, 'Chivas10', 'chiv', 30, 1000000, 10);
-INSERT INTO `beverages` VALUES (14, 'Chivas20', 'chiv', 30, 1500000, 15);
-INSERT INTO `beverages` VALUES (15, 'Vang ý', 'ac', 15, 2500000, 10);
-INSERT INTO `beverages` VALUES (16, 'Ripa Di Sotto Primitivo', 'ita', 38, 100000000, 15);
-INSERT INTO `beverages` VALUES (17, '333', 'handmade', 20, 250000, 3);
-INSERT INTO `beverages` VALUES (18, 'Heniken', 'handmade', 9, 260000, 5);
+INSERT INTO `beverages` VALUES (1, '1', '1', 2, 1, 1, 0);
+INSERT INTO `beverages` VALUES (2, '2', '2', 0, 2, 0, 0);
+INSERT INTO `beverages` VALUES (3, 'a', 'a', 0, 2, 1, 0);
+INSERT INTO `beverages` VALUES (4, 'Cocacola', 'coca', 90, 15000, 0, 1);
+INSERT INTO `beverages` VALUES (5, 'Sprite', 'sprite', 15, 20000, 0, 1);
+INSERT INTO `beverages` VALUES (6, 'Pepsi', 'pepsi', 20, 12000, 0, 1);
+INSERT INTO `beverages` VALUES (7, 'Sting', 'sting', 55, 17000, 0, 1);
+INSERT INTO `beverages` VALUES (8, 'Lavie', 'lavie', 22, 13000, 0, 1);
+INSERT INTO `beverages` VALUES (9, 'Aquafina', 'aqua', 20, 9000, 0, 1);
+INSERT INTO `beverages` VALUES (10, 'Bò húc', 'bohuc', 30, 30000, 0, 1);
+INSERT INTO `beverages` VALUES (11, 'Hổ vằn', 'hovan', 25, 19000, 0, 1);
+INSERT INTO `beverages` VALUES (12, 'Fanta', 'tanfa', 15, 25000, 0, 1);
+INSERT INTO `beverages` VALUES (13, 'Chivas10', 'chiv', 30, 1000000, 10, 1);
+INSERT INTO `beverages` VALUES (14, 'Chivas20', 'chiv', 30, 1500000, 15, 1);
+INSERT INTO `beverages` VALUES (15, 'Vang ý', 'ac', 14, 2500000, 10, 1);
+INSERT INTO `beverages` VALUES (16, 'Ripa Di Sotto Primitivo', 'ita', 38, 100000000, 15, 1);
+INSERT INTO `beverages` VALUES (17, '333', 'handmade', 20, 250000, 3, 1);
+INSERT INTO `beverages` VALUES (18, 'Heniken', 'handmade', 9, 260000, 5, 1);
 
 -- ----------------------------
 -- Table structure for detailbeverageorders
@@ -68,13 +69,23 @@ CREATE TABLE `detailbeverageorders`  (
   INDEX `IdOrderBeverage`(`IdOrder`) USING BTREE,
   CONSTRAINT `IdBeverage` FOREIGN KEY (`IdBeverage`) REFERENCES `beverages` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `IdOrderBeverage` FOREIGN KEY (`IdOrder`) REFERENCES `orders` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detailbeverageorders
 -- ----------------------------
 INSERT INTO `detailbeverageorders` VALUES (7, 6, 7, 3);
 INSERT INTO `detailbeverageorders` VALUES (8, 7, 6, 1);
+INSERT INTO `detailbeverageorders` VALUES (9, 10, 4, 2);
+INSERT INTO `detailbeverageorders` VALUES (10, 10, 6, 1);
+INSERT INTO `detailbeverageorders` VALUES (11, 10, 15, 1);
+INSERT INTO `detailbeverageorders` VALUES (12, 10, 12, 1);
+INSERT INTO `detailbeverageorders` VALUES (13, 10, 5, 1);
+INSERT INTO `detailbeverageorders` VALUES (14, 11, 9, 1);
+INSERT INTO `detailbeverageorders` VALUES (15, 11, 8, 1);
+INSERT INTO `detailbeverageorders` VALUES (16, 12, 7, 1);
+INSERT INTO `detailbeverageorders` VALUES (17, 13, 9, 1);
+INSERT INTO `detailbeverageorders` VALUES (18, 13, 7, 1);
 
 -- ----------------------------
 -- Table structure for detailfoodorders
@@ -90,7 +101,7 @@ CREATE TABLE `detailfoodorders`  (
   INDEX `IdOrder`(`IdOrder`) USING BTREE,
   CONSTRAINT `IdFood` FOREIGN KEY (`IdFood`) REFERENCES `foods` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `IdOrder` FOREIGN KEY (`IdOrder`) REFERENCES `orders` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detailfoodorders
@@ -105,6 +116,15 @@ INSERT INTO `detailfoodorders` VALUES (12, 8, 8, 1);
 INSERT INTO `detailfoodorders` VALUES (13, 8, 16, 1);
 INSERT INTO `detailfoodorders` VALUES (14, 9, 16, 1);
 INSERT INTO `detailfoodorders` VALUES (15, 9, 17, 1);
+INSERT INTO `detailfoodorders` VALUES (16, 10, 7, 1);
+INSERT INTO `detailfoodorders` VALUES (17, 10, 8, 1);
+INSERT INTO `detailfoodorders` VALUES (18, 10, 9, 1);
+INSERT INTO `detailfoodorders` VALUES (19, 11, 10, 1);
+INSERT INTO `detailfoodorders` VALUES (20, 11, 16, 1);
+INSERT INTO `detailfoodorders` VALUES (21, 11, 17, 1);
+INSERT INTO `detailfoodorders` VALUES (22, 12, 17, 1);
+INSERT INTO `detailfoodorders` VALUES (23, 13, 10, 1);
+INSERT INTO `detailfoodorders` VALUES (24, 13, 16, 1);
 
 -- ----------------------------
 -- Table structure for foods
@@ -115,28 +135,30 @@ CREATE TABLE `foods`  (
   `Name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `Price` float NULL DEFAULT NULL,
   `Quantity` int NULL DEFAULT NULL,
+  `Status` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of foods
 -- ----------------------------
-INSERT INTO `foods` VALUES (1, 'a', 1, 0);
-INSERT INTO `foods` VALUES (3, 'b', 2, 100);
-INSERT INTO `foods` VALUES (4, 'c', 2, 0);
-INSERT INTO `foods` VALUES (5, 'e', 2, 0);
-INSERT INTO `foods` VALUES (6, 'Đậu hũ', 15000, 20);
-INSERT INTO `foods` VALUES (7, 'Rau muống luộc', 20000, 30);
-INSERT INTO `foods` VALUES (8, 'Thịt kho trứng', 30000, 50);
-INSERT INTO `foods` VALUES (9, 'Tôm kho thịt', 17000, 40);
-INSERT INTO `foods` VALUES (10, 'Bánh xèo', 30000, 30);
-INSERT INTO `foods` VALUES (11, 'Cá Hồi', 50000, 15);
-INSERT INTO `foods` VALUES (12, 'Sushi', 55000, 53);
-INSERT INTO `foods` VALUES (13, 'Táo hấp lê', 14000, 20);
-INSERT INTO `foods` VALUES (14, 'Gà ủ muối', 100000, 30);
-INSERT INTO `foods` VALUES (15, 'Tiramisu', 150000, 20);
-INSERT INTO `foods` VALUES (16, 'Panna cotta lựu', 200000, 20);
-INSERT INTO `foods` VALUES (17, 'Bánh mì', 10000, 100);
+INSERT INTO `foods` VALUES (1, 'a', 1, 0, 0);
+INSERT INTO `foods` VALUES (3, 'b', 2, 100, 0);
+INSERT INTO `foods` VALUES (4, 'c', 2, 0, 0);
+INSERT INTO `foods` VALUES (5, 'e', 2, 0, 0);
+INSERT INTO `foods` VALUES (6, 'Đậu hũ', 15000, 19, 1);
+INSERT INTO `foods` VALUES (7, 'Rau muống luộc', 20000, 30, 1);
+INSERT INTO `foods` VALUES (8, 'Thịt kho trứng', 30000, 50, 1);
+INSERT INTO `foods` VALUES (9, 'Tôm kho thịt', 17000, 40, 1);
+INSERT INTO `foods` VALUES (10, 'Bánh xèo', 30000, 30, 1);
+INSERT INTO `foods` VALUES (11, 'Cá Hồi', 50000, 15, 1);
+INSERT INTO `foods` VALUES (12, 'Sushi', 55000, 53, 1);
+INSERT INTO `foods` VALUES (13, 'Táo hấp lê', 14000, 20, 1);
+INSERT INTO `foods` VALUES (14, 'Gà ủ muối', 100000, 29, 1);
+INSERT INTO `foods` VALUES (15, 'Tiramisu', 150000, 20, 1);
+INSERT INTO `foods` VALUES (16, 'Panna cotta lựu', 200000, 20, 1);
+INSERT INTO `foods` VALUES (17, 'Bánh mì', 10000, 100, 1);
+INSERT INTO `foods` VALUES (18, 'Gà sốt vang', 255000, 19, 1);
 
 -- ----------------------------
 -- Table structure for menu_beverages
@@ -155,12 +177,12 @@ CREATE TABLE `menu_beverages`  (
 -- Records of menu_beverages
 -- ----------------------------
 INSERT INTO `menu_beverages` VALUES (1, 2, 2);
-INSERT INTO `menu_beverages` VALUES (1, 4, 10);
-INSERT INTO `menu_beverages` VALUES (1, 5, 5);
-INSERT INTO `menu_beverages` VALUES (1, 6, 15);
+INSERT INTO `menu_beverages` VALUES (1, 4, 8);
+INSERT INTO `menu_beverages` VALUES (1, 5, 4);
+INSERT INTO `menu_beverages` VALUES (1, 6, 14);
 INSERT INTO `menu_beverages` VALUES (1, 7, 1);
-INSERT INTO `menu_beverages` VALUES (1, 12, 6);
-INSERT INTO `menu_beverages` VALUES (1, 15, 10);
+INSERT INTO `menu_beverages` VALUES (1, 12, 5);
+INSERT INTO `menu_beverages` VALUES (1, 15, 9);
 INSERT INTO `menu_beverages` VALUES (1, 17, 2);
 INSERT INTO `menu_beverages` VALUES (2, 2, 2);
 INSERT INTO `menu_beverages` VALUES (2, 5, 20);
@@ -180,9 +202,11 @@ INSERT INTO `menu_beverages` VALUES (5, 10, 6);
 INSERT INTO `menu_beverages` VALUES (5, 11, 3);
 INSERT INTO `menu_beverages` VALUES (5, 13, 10);
 INSERT INTO `menu_beverages` VALUES (5, 15, 4);
-INSERT INTO `menu_beverages` VALUES (6, 7, 5);
-INSERT INTO `menu_beverages` VALUES (6, 8, 9);
-INSERT INTO `menu_beverages` VALUES (6, 9, 9);
+INSERT INTO `menu_beverages` VALUES (6, 7, 3);
+INSERT INTO `menu_beverages` VALUES (6, 8, 8);
+INSERT INTO `menu_beverages` VALUES (6, 9, 7);
+INSERT INTO `menu_beverages` VALUES (6, 15, 1);
+INSERT INTO `menu_beverages` VALUES (6, 17, 5);
 INSERT INTO `menu_beverages` VALUES (7, 6, 2);
 INSERT INTO `menu_beverages` VALUES (7, 7, 2);
 INSERT INTO `menu_beverages` VALUES (7, 8, 1);
@@ -209,32 +233,35 @@ INSERT INTO `menu_foods` VALUES (4, 3, 71);
 INSERT INTO `menu_foods` VALUES (5, 4, 0);
 INSERT INTO `menu_foods` VALUES (3, 5, 19);
 INSERT INTO `menu_foods` VALUES (5, 5, 0);
+INSERT INTO `menu_foods` VALUES (1, 6, 1);
 INSERT INTO `menu_foods` VALUES (2, 6, 5);
-INSERT INTO `menu_foods` VALUES (1, 7, 8);
+INSERT INTO `menu_foods` VALUES (1, 7, 7);
 INSERT INTO `menu_foods` VALUES (5, 7, 7);
-INSERT INTO `menu_foods` VALUES (1, 8, 9);
+INSERT INTO `menu_foods` VALUES (1, 8, 8);
 INSERT INTO `menu_foods` VALUES (2, 8, 10);
-INSERT INTO `menu_foods` VALUES (5, 8, 12);
+INSERT INTO `menu_foods` VALUES (5, 8, 11);
 INSERT INTO `menu_foods` VALUES (6, 8, 1);
 INSERT INTO `menu_foods` VALUES (7, 8, 7);
-INSERT INTO `menu_foods` VALUES (1, 9, 5);
+INSERT INTO `menu_foods` VALUES (1, 9, 4);
 INSERT INTO `menu_foods` VALUES (2, 9, 1);
 INSERT INTO `menu_foods` VALUES (3, 9, 4);
 INSERT INTO `menu_foods` VALUES (7, 9, 4);
 INSERT INTO `menu_foods` VALUES (3, 10, 20);
 INSERT INTO `menu_foods` VALUES (4, 10, 5);
-INSERT INTO `menu_foods` VALUES (6, 10, 8);
+INSERT INTO `menu_foods` VALUES (6, 10, 5);
 INSERT INTO `menu_foods` VALUES (3, 11, 10);
 INSERT INTO `menu_foods` VALUES (3, 12, 2);
 INSERT INTO `menu_foods` VALUES (1, 13, 2);
 INSERT INTO `menu_foods` VALUES (4, 13, 20);
 INSERT INTO `menu_foods` VALUES (4, 14, 12);
+INSERT INTO `menu_foods` VALUES (7, 14, 1);
 INSERT INTO `menu_foods` VALUES (2, 15, 3);
-INSERT INTO `menu_foods` VALUES (6, 16, 5);
+INSERT INTO `menu_foods` VALUES (6, 16, 3);
 INSERT INTO `menu_foods` VALUES (7, 16, 12);
 INSERT INTO `menu_foods` VALUES (5, 17, 7);
-INSERT INTO `menu_foods` VALUES (6, 17, 8);
+INSERT INTO `menu_foods` VALUES (6, 17, 6);
 INSERT INTO `menu_foods` VALUES (7, 17, 12);
+INSERT INTO `menu_foods` VALUES (1, 18, 1);
 
 -- ----------------------------
 -- Table structure for orders
@@ -253,7 +280,7 @@ CREATE TABLE `orders`  (
   INDEX `IdShipper`(`IdShipper`) USING BTREE,
   CONSTRAINT `IdCustomer` FOREIGN KEY (`IdCustomer`) REFERENCES `persons` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `IdShipper` FOREIGN KEY (`IdShipper`) REFERENCES `persons` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of orders
@@ -262,6 +289,10 @@ INSERT INTO `orders` VALUES (6, '2021-11-10 14:18:26', 3, 15000, 10, 1, 20);
 INSERT INTO `orders` VALUES (7, '2021-11-27 14:49:46', 4, 3864200, 10, 1, 24);
 INSERT INTO `orders` VALUES (8, '2021-11-27 14:59:59', 3, 2502550, 11, 1, 21);
 INSERT INTO `orders` VALUES (9, '2021-11-27 15:00:35', 2, 1915200, 12, 1, 19);
+INSERT INTO `orders` VALUES (10, '2021-11-28 19:39:15', 8, 27674100, 11, 1, 21);
+INSERT INTO `orders` VALUES (11, '2021-12-03 01:28:27', 5, 815344, 13, 1, 25);
+INSERT INTO `orders` VALUES (12, '2021-12-10 16:09:22', 2, 1053870, 10, 1, 19);
+INSERT INTO `orders` VALUES (13, '2021-12-10 16:49:46', 4, 9992270, 10, 0, NULL);
 
 -- ----------------------------
 -- Table structure for persons
@@ -280,40 +311,45 @@ CREATE TABLE `persons`  (
   `Email` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Password` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Role` int NOT NULL,
+  `Status` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`Id`) USING BTREE,
   UNIQUE INDEX `Email_UNIQUE`(`Email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of persons
 -- ----------------------------
-INSERT INTO `persons` VALUES (1, 'Duc Thang', 'Duong', '0989053642', 'Male', 21, '', NULL, NULL, 'Thang1407@gmail.com', 'Thang1407', 1);
-INSERT INTO `persons` VALUES (3, 'thang1', 'thang', '12345', 'Male', 21, 'thang', 37.7429, NULL, 'thang', '123', 2);
-INSERT INTO `persons` VALUES (4, 'thang', 'thang', '1234', 'Female', 29, '', NULL, 10000000, '1234', '1234', 3);
-INSERT INTO `persons` VALUES (5, 'ab', 'a', 'a', 'Male', 22, 'a', NULL, NULL, 'a', 'a', 1);
-INSERT INTO `persons` VALUES (6, '2', '2', '2', 'Male', 20, '2', 24.3463, NULL, '2', '2', 2);
-INSERT INTO `persons` VALUES (7, '34', '3', '3', 'Male', 30, NULL, NULL, 100000, '3', '3', 3);
-INSERT INTO `persons` VALUES (9, '8', '8', '8', 'Male', 80, NULL, NULL, NULL, '8', '8', 1);
-INSERT INTO `persons` VALUES (10, 'Trung Thành', 'Ninh Phạm', '09036531575', 'Male', 30, '69523 Thi Cầm Spurs, Apt. 853, 90956, Thừa Thiên-Huế, Vermont, Vietnam', 39.0323, NULL, 'ThanhTrung231@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (11, 'Hiếu Đan', 'Nguyễn', '09103648752', 'Other', 30, '5368 Tre Views, Apt. 068, 23110, East Timmothy, Michigan, United States', 10.4273, NULL, 'DanN213@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (12, 'Minh Nguyên', 'Lê', '09875495217', 'Female', 20, '14449 Tiểu My Islands, Apt. 939, 99203, Hậu Giang, Texas, Vietnam', 9.12, NULL, 'MinhNL@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (13, 'Đức Tâm', 'Phạm', '09736547157', 'Female', 28, '8137 Hegmann Freeway, Apt. 668, 98360-2163, Modestomouth, Utah, United States', 3.112, NULL, 'TamPham@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (14, 'Tài Mạnh', 'Phương', '03254894137', 'Other', 50, '6877 Phạm Trail, Suite 580, 30169, Thanh Hoá, New Hampshire, Vietnam', 1, NULL, 'phuongtai@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (15, 'Lê Trọng', 'Đinh', '09654214773', 'Other', 38, '37034 Luettgen Route, Apt. 270, 54808-5961, East Shanon, South Carolina, United States', 2.01, NULL, 'trongdinh@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (16, 'Phương Mạnh', 'Quỳnh', '09731244754', 'Other', 40, '21220 Gabrielle Trail, Apt. 825, 35372, New Clayview, Mississippi, United States', 15.013, NULL, 'quynhmanh@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (17, 'Thanh Đỗ', 'Nguyễn Đỗ', '07989214753', 'Female', 28, '3269 Lý Parkways, Apt. 105, 40059, Yên Bái, Oregon, Vietnam', 10.467, NULL, 'ThanhDo@gmail.com', '1234567', 2);
-INSERT INTO `persons` VALUES (18, 'Đinh Mạnh', 'Ninh', '09624757561', 'Male', 50, '', NULL, 10000000, 'manhNinh@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (19, 'My Huyền', 'Đỗ', '07952152486', 'Female', 20, NULL, NULL, 3000000, 'my12@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (20, 'Mạnh Hùng', 'Phan', '01775158963', 'Male', 19, NULL, NULL, 20000000, 'manhHung01@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (21, 'Tiến Thành', 'Đinh', '09893124721', 'Other', 55, NULL, NULL, 50000000, 'thanh1@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (22, 'Minh Chiến ', 'Nguyễn', '09871889917', 'Female', 22, NULL, NULL, 10000000, 'abx@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (23, 'Diệu Huyền', 'Trần', '07817144772', 'Female', 33, NULL, NULL, 15000000, 'huyenDieu@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (24, 'Minh Đức ', 'Trần Tiến', '01392487892', 'Male', 55, NULL, NULL, 2500000, 'vhxuaqn@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (25, 'Đỗ Tiên', 'Nguyễn ', '01688524792', 'Other', 20, NULL, NULL, 1500000, 'Tiendi@gmail.com', '1234567', 3);
-INSERT INTO `persons` VALUES (26, 'Đan Hiếu', 'Nguyễn', '09787785217', 'Male', 22, NULL, NULL, NULL, 'Admin01', '1234567', 1);
-INSERT INTO `persons` VALUES (27, 'Thành Trung', 'Ninh', '09797417717', 'Male', 22, NULL, NULL, NULL, 'Admin02', '1234567', 1);
-INSERT INTO `persons` VALUES (28, 'Đức Thắng', 'Dương', '09798851723', 'Male', 22, NULL, NULL, NULL, 'Admin03', '1234567', 1);
-INSERT INTO `persons` VALUES (29, 'Admin', 'Admin', '11111111111', 'Male', 22, NULL, NULL, NULL, 'Admin', '1234567', 1);
+INSERT INTO `persons` VALUES (3, 'thang1', 'thang', '12345', 'Male', 21, 'thang', 37.7429, NULL, 'thang', '123', 2, 0);
+INSERT INTO `persons` VALUES (4, 'thang', 'thang', '1234', 'Female', 29, '', NULL, 10000000, '1234', '1234', 3, 0);
+INSERT INTO `persons` VALUES (5, 'ab', 'a', 'a', 'Male', 22, 'a', NULL, NULL, 'a', 'a', 1, 0);
+INSERT INTO `persons` VALUES (6, '2', '2', '2', 'Male', 20, '2', 24.3463, NULL, '2', '2', 2, 0);
+INSERT INTO `persons` VALUES (7, '34', '3', '3', 'Male', 30, NULL, NULL, 100000, '3', '3', 3, 0);
+INSERT INTO `persons` VALUES (9, '8', '8', '8', 'Male', 80, NULL, NULL, NULL, '8', '8', 1, 0);
+INSERT INTO `persons` VALUES (10, 'Trung Thành', 'Ninh Phạm', '09036531575', 'Male', 11, '69523 Thi Cầm Spurs, Apt. 853, 90956, Thừa Thiên-Huế, Vermont, Vietnam', 39.0323, NULL, 'ThanhTrung231@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (11, 'Hiếu Đan', 'Nguyễn', '09103648752', 'Other', 30, '5368 Tre Views, Apt. 068, 23110, East Timmothy, Michigan, United States', 10.4273, NULL, 'DanN213@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (12, 'Minh Nguyên', 'Lê', '09875495217', 'Female', 20, '14449 Tiểu My Islands, Apt. 939, 99203, Hậu Giang, Texas, Vietnam', 9.12, NULL, 'MinhNL@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (13, 'Đức Tâm', 'Phạm', '09736547157', 'Female', 28, '8137 Hegmann Freeway, Apt. 668, 98360-2163, Modestomouth, Utah, United States', 3.112, NULL, 'TamPham@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (14, 'Tài Mạnh', 'Phương', '03254894137', 'Other', 50, '6877 Phạm Trail, Suite 580, 30169, Thanh Hoá, New Hampshire, Vietnam', 1, NULL, 'phuongtai@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (15, 'Lê Trọng', 'Đinh', '09654214773', 'Other', 38, '37034 Luettgen Route, Apt. 270, 54808-5961, East Shanon, South Carolina, United States', 2.01, NULL, 'trongdinh@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (16, 'Phương Mạnh', 'Quỳnh', '09731244754', 'Other', 40, '21220 Gabrielle Trail, Apt. 825, 35372, New Clayview, Mississippi, United States', 15.013, NULL, 'quynhmanh@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (17, 'Thanh Đỗ', 'Nguyễn Đỗ', '07989214753', 'Female', 28, '3269 Lý Parkways, Apt. 105, 40059, Yên Bái, Oregon, Vietnam', 10.467, NULL, 'ThanhDo@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (18, 'Đinh Mạnh', 'Ninh', '09624757561', 'Male', 46, '', NULL, 10000000, 'manhNinh@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (19, 'My Huyền', 'Đỗ', '07952152486', 'Female', 21, NULL, 0, 19350, 'my12@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (20, 'Mạnh Hùng', 'Phan', '01775158963', 'Male', 19, NULL, NULL, 20000000, 'manhHung01@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (21, 'Tiến Thành', 'Đinh', '09893124721', 'Other', 55, NULL, NULL, 50000000, 'thanh1@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (22, 'Minh Chiến ', 'Nguyễn', '09871889917', 'Female', 22, NULL, NULL, 10000000, 'abx@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (23, 'Diệu Huyền', 'Trần', '07817144772', 'Female', 33, NULL, NULL, 15000000, 'huyenDieu@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (24, 'Minh Đức ', 'Trần Tiến', '01392487892', 'Male', 55, NULL, NULL, 2500000, 'vhxuaqn@gmail.com', '1234567', 3, 0);
+INSERT INTO `persons` VALUES (25, 'Đỗ Tiên', 'Nguyễn ', '01688524792', 'Other', 20, NULL, NULL, 1500000, 'Tiendi@gmail.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (26, 'Đan Hiếu', 'Nguyễn', '09787785217', 'Male', 22, NULL, NULL, NULL, 'Admin01', '1234567', 1, 1);
+INSERT INTO `persons` VALUES (27, 'Thành Trung', 'Ninh', '09797417717', 'Male', 22, NULL, NULL, NULL, 'Admin02', '1234567', 1, 1);
+INSERT INTO `persons` VALUES (28, 'Đức Thắng', 'Dương', '09798851723', 'Male', 22, NULL, NULL, NULL, 'Admin03', '1234567', 1, 1);
+INSERT INTO `persons` VALUES (29, 'Admin', 'Admin', '11111111111', 'Male', 23, NULL, 0, NULL, 'Admin', '1234567', 1, 1);
+INSERT INTO `persons` VALUES (30, 'Thang', 'Duong', '1390894791', 'Male', 23, '27/83, Nguyễn Đại Phát', 9.0835, NULL, 'Thangdeptrai@gmail.com', '1234567', 2, 1);
+INSERT INTO `persons` VALUES (31, 'Thang', 'Duong', '098904572', 'Male', 20, NULL, NULL, NULL, 'ThangAB@gmail.com', '1234567', 1, 1);
+INSERT INTO `persons` VALUES (32, 'Nyn nguyen', 'Vo Tran', '097547558', 'Other', 25, NULL, NULL, NULL, 'NynNyn@gmail.com', '1234567', 1, 0);
+INSERT INTO `persons` VALUES (33, 'Thang Duc', 'Duong', '0989035479', 'Male', 20, NULL, NULL, 12000000, 'Thang@deptrai.com', '1234567', 3, 1);
+INSERT INTO `persons` VALUES (34, 'Dang', 'Johnny', '098970651', 'Male', 30, '98, Hai Bà Trung, Hà nội', 32.4126, NULL, 'NguyenSang@gmail.com', '1234567', 2, 1);
 
 -- ----------------------------
 -- Table structure for reviews
@@ -330,7 +366,7 @@ CREATE TABLE `reviews`  (
   INDEX `reviews_orders_Id_fk`(`IdOrder`) USING BTREE,
   CONSTRAINT `review_persons_Id_fk` FOREIGN KEY (`IdCustomer`) REFERENCES `persons` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `reviews_orders_Id_fk` FOREIGN KEY (`IdOrder`) REFERENCES `orders` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of reviews
@@ -361,5 +397,6 @@ INSERT INTO `statusofshippers` VALUES (22, 0);
 INSERT INTO `statusofshippers` VALUES (23, 0);
 INSERT INTO `statusofshippers` VALUES (24, 0);
 INSERT INTO `statusofshippers` VALUES (25, 0);
+INSERT INTO `statusofshippers` VALUES (33, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

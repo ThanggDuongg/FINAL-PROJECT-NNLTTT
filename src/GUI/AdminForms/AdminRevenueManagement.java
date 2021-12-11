@@ -8,7 +8,6 @@ import DTO.AdministratorDTO;
 import DTO.CustomerDTO;
 import DTO.OrderDTO;
 import DTO.ShipperDTO;
-import GUI.LoginGUI;
 import Globals.Globals;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -35,6 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 //import org.apache.poi.ss.usermodel.Cell;
@@ -54,6 +54,8 @@ public class AdminRevenueManagement extends JFrame{
     private JComboBox cb_Sort;
     private JPanel pnl_Chart;
     private JButton return_BT;
+    private JButton btn_ChangeChart;
+    private int state = 2;
 
     private void loadHistoryOrder_Delivered(int index) {
         DefaultTableModel model = (DefaultTableModel) table_HistoryOrders_Deliverd.getModel();
@@ -96,14 +98,31 @@ public class AdminRevenueManagement extends JFrame{
         return ds;
     }
 
+    private int dayOfMonth(Timestamp timestamp) {
+        LocalDate currentdate = timestamp.toLocalDateTime().toLocalDate();
+        return currentdate.getDayOfMonth();
+    }
+
     public void drawChart() {
         List<OrderDTO> orderDTOList = OrderBUS.getAllOrdersWithStatusTrue(0);
-        XYSeries series = new XYSeries("total price / quantity");
-        System.out.println(orderDTOList.size());
-        for (int i = 0; i < orderDTOList.size(); i++)
-            series.add(orderDTOList.get(i).getQuantity(), orderDTOList.get(i).getTotal());
-        XYSeriesCollection dataset = new XYSeriesCollection(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("Revenue Line Chart", "Quantity", "Total", dataset, PlotOrientation.HORIZONTAL, true, true, true);
+        JFreeChart chart = null;
+        if (state == 1) {
+            XYSeries series = new XYSeries("total price / quantity");
+            System.out.println(orderDTOList.size());
+            for (int i = 0; i < orderDTOList.size(); i++)
+                series.add(orderDTOList.get(i).getQuantity(), orderDTOList.get(i).getTotal());
+            XYSeriesCollection dataset = new XYSeriesCollection(series);
+            chart = ChartFactory.createXYLineChart("Revenue Line Chart", "Quantity", "Total", dataset, PlotOrientation.HORIZONTAL, true, true, true);
+        }
+        else if (state == 2) {
+            XYSeries series = new XYSeries("total price / day of month");
+            System.out.println(orderDTOList.size());
+            for (int i = 0; i < orderDTOList.size(); i++)
+                series.add(dayOfMonth(orderDTOList.get(i).getDateOrder()), orderDTOList.get(i).getTotal());
+            XYSeriesCollection dataset = new XYSeriesCollection(series);
+            chart = ChartFactory.createXYLineChart("Revenue Line Chart", "Day of month", "Total", dataset, PlotOrientation.HORIZONTAL, true, true, true);
+        }
+
         ChartPanel chartpanel = new ChartPanel(chart);
         chartpanel.setDomainZoomable(true);
 
@@ -309,6 +328,24 @@ public class AdminRevenueManagement extends JFrame{
                 catch(Exception ex) {
                     System.out.println(ex.getMessage());
                 }
+            }
+        });
+        btn_ChangeChart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                if (state == 1) {
+//                    state = 2;
+//                    drawChart();
+//                    new AdminRevenueManagement();
+//                }
+//                else if (state == 2) {
+//                    state = 3;
+//                    drawChart();
+//                }
+//                else {
+//                    state = 1;
+//                    drawChart();
+//                }
             }
         });
     }
